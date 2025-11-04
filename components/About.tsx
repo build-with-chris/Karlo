@@ -119,12 +119,12 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-20"
           >
-            <h3 className="text-center text-2xl font-serif text-earth-700 mb-12">
+            <h3 className="text-center text-2xl font-serif text-earth-700 mb-16 md:mb-20">
               Werdegang
             </h3>
 
-            {/* Timeline Container */}
-            <div className="relative" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+            {/* Desktop Timeline - Horizontal */}
+            <div className="hidden md:block relative" style={{ paddingTop: '10rem', paddingBottom: '10rem' }}>
               {/* Timeline Line */}
               <div
                 style={{
@@ -164,10 +164,10 @@ export default function About() {
                           position: 'absolute',
                           top: isAbove ? 'auto' : '50%',
                           bottom: isAbove ? '50%' : 'auto',
-                          transform: isAbove ? 'translateY(-2rem)' : 'translateY(2rem)',
+                          transform: isAbove ? 'translateY(-3rem)' : 'translateY(3rem)',
                           width: '100%',
-                          maxWidth: '200px',
-                          padding: '0 0.5rem'
+                          maxWidth: '180px',
+                          padding: '0 0.25rem'
                         }}
                       >
                         <button
@@ -177,7 +177,7 @@ export default function About() {
                             background: 'white',
                             border: '2px solid #cdbba4',
                             borderRadius: '0.5rem',
-                            padding: '1rem',
+                            padding: '0.875rem',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
                             boxShadow: isExpanded
@@ -198,7 +198,7 @@ export default function About() {
                             }
                           }}
                         >
-                          <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#6e5742', marginBottom: '0.25rem' }}>
+                          <div style={{ fontSize: '0.8rem', fontWeight: '600', color: '#6e5742', marginBottom: '0.25rem', lineHeight: '1.3' }}>
                             {milestone.title}
                           </div>
                           {isExpanded && (
@@ -208,10 +208,10 @@ export default function About() {
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.3 }}
                               style={{
-                                fontSize: '0.75rem',
+                                fontSize: '0.7rem',
                                 color: 'rgba(110, 87, 66, 0.85)',
                                 marginTop: '0.5rem',
-                                lineHeight: '1.5'
+                                lineHeight: '1.4'
                               }}
                             >
                               {milestone.description}
@@ -252,6 +252,86 @@ export default function About() {
                   );
                 })}
               </div>
+            </div>
+
+            {/* Mobile Timeline - Vertical */}
+            <div className="block md:hidden space-y-6">
+              {milestones.map((milestone, index) => {
+                const isExpanded = expandedIndex === index;
+
+                return (
+                  <motion.div
+                    key={milestone.year}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isTimelineInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                    className="flex gap-4"
+                  >
+                    {/* Year Circle */}
+                    <div
+                      style={{
+                        width: '60px',
+                        height: '60px',
+                        minWidth: '60px',
+                        borderRadius: '50%',
+                        backgroundColor: isExpanded ? '#b08a5b' : 'white',
+                        border: '3px solid #b08a5b',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontFamily: 'var(--font-serif)',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        color: isExpanded ? 'white' : '#b08a5b',
+                        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                    >
+                      {milestone.year}
+                    </div>
+
+                    {/* Content Box */}
+                    <button
+                      onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                      style={{
+                        flex: 1,
+                        background: 'white',
+                        border: '2px solid #cdbba4',
+                        borderRadius: '0.5rem',
+                        padding: '1rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        boxShadow: isExpanded
+                          ? '0 10px 15px -3px rgb(0 0 0 / 0.1)'
+                          : '0 1px 3px 0 rgb(0 0 0 / 0.1)',
+                        textAlign: 'left'
+                      }}
+                    >
+                      <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#6e5742', marginBottom: '0.25rem' }}>
+                        {milestone.title}
+                      </div>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          style={{
+                            fontSize: '0.8rem',
+                            color: 'rgba(110, 87, 66, 0.85)',
+                            marginTop: '0.5rem',
+                            lineHeight: '1.5'
+                          }}
+                        >
+                          {milestone.description}
+                        </motion.div>
+                      )}
+                    </button>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </motion.div>
