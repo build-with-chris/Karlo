@@ -86,29 +86,32 @@ export default function Navigation() {
           </motion.button>
 
           {/* Navigation Items */}
-          <ul className="hidden md:flex items-center gap-8">
-            {navItems.map(({ id, label }) => (
-              <li key={id}>
-                <button
-                  onClick={() => scrollToSection(id)}
-                  className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm px-2 py-1 ${
-                    activeSection === id
-                      ? "text-accent"
-                      : "text-earth-700 hover:text-accent"
-                  }`}
-                >
-                  {label}
-                  {activeSection === id && (
-                    <motion.span
-                      layoutId="activeSection"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <nav aria-label="Hauptnavigation">
+            <ul className="hidden md:flex items-center gap-8">
+              {navItems.map(({ id, label }) => (
+                <li key={id}>
+                  <button
+                    onClick={() => scrollToSection(id)}
+                    className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm px-2 py-1 ${
+                      activeSection === id
+                        ? "text-accent"
+                        : "text-earth-700 hover:text-accent"
+                    }`}
+                    aria-current={activeSection === id ? "page" : undefined}
+                  >
+                    {label}
+                    {activeSection === id && (
+                      <motion.span
+                        layoutId="activeSection"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           {/* Mobile Menu Button */}
           <button

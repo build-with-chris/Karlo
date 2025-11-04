@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* Color Palette */
   --color-earth-50: #faf7f2;
   --color-earth-100: #efe8dc;
   --color-earth-200: #e0d5c4;
@@ -9,8 +10,26 @@
   --color-earth-700: #6e5742;
   --color-accent: #b08a5b;
 
+  /* Typography */
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-serif: var(--font-libre-baskerville), Georgia, serif;
+
+  /* Spacing Scale */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 3rem;      /* 48px */
+  --spacing-2xl: 4rem;     /* 64px */
+  --spacing-3xl: 6rem;     /* 96px */
+  --spacing-4xl: 8rem;     /* 128px */
+
+  /* Shadow Scale */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 @layer base {
@@ -37,32 +56,33 @@
   }
 
   h1 {
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
-    margin-bottom: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 1.25rem;
-    margin-top: 1.75rem;
-  }
-
-  h3 {
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-size: clamp(2rem, 4vw, 2.5rem);
     margin-bottom: 1rem;
     margin-top: 1.5rem;
   }
 
-  h4 {
-    font-size: clamp(1.25rem, 2vw, 1.875rem);
+  h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
     margin-bottom: 1rem;
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    margin-bottom: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  h4 {
+    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+    margin-bottom: 0.75rem;
+    margin-top: 1rem;
   }
 
   p {
-    margin-bottom: 1rem;
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    margin-bottom: 0.875rem;
+    font-size: 1rem;
+    line-height: 1.6;
     color: rgb(110 87 66 / 0.9);
   }
 
@@ -244,9 +264,13 @@
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-decoration: none;
     transition: all 200ms;
     cursor: pointer;
     border: none;
+    white-space: nowrap;
   }
 
   .btn:focus-visible {
@@ -324,5 +348,41 @@
 
   .no-underline {
     text-decoration: none;
+  }
+
+  /* Screen Reader Only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .focus\:not-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
