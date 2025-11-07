@@ -22,13 +22,13 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
           >
             {/* Header & Introduction */}
-            <div className="text-center mb-12 max-w-2xl mx-auto">
-              <h2 className="mb-4">Portfolio</h2>
+            <div className="text-center mb-10 md:mb-12">
+              <h2 className="mb-3 md:mb-4">Portfolio</h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-base text-earth-700/80"
+                className="text-base md:text-lg text-earth-700/80"
               >
                 Ausgewählte Momente
               </motion.p>
