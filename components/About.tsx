@@ -42,23 +42,23 @@ export default function About() {
 
   return (
     <section id="about" className="section bg-white/30">
-      <div className="container max-w-6xl">
+      <div className="container max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-center mb-12">Über Karlo</h2>
+          <h2 className="text-center mb-12 md:mb-16">Über Karlo</h2>
 
-          {/* Two-Column Layout */}
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left: Video */}
+          {/* Full Width Content Layout */}
+          <div className="max-w-5xl mx-auto">
+            {/* Video - Only on Mobile */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full"
+              className="w-full md:hidden"
             >
               <div
                 style={{
@@ -91,24 +91,42 @@ export default function About() {
               </div>
             </motion.div>
 
-            {/* Right: Biography & Values */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="space-y-6"
-            >
-              <div className="space-y-4">
-                <p className="text-base leading-relaxed text-earth-700/90">
+            {/* Biography & Values with integrated Quote - Side by Side on Desktop */}
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
+              {/* Text Content */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="space-y-6"
+              >
+                <p className="text-base md:text-lg lg:text-xl leading-relaxed text-earth-700/90 text-center md:text-left">
                   Professioneller Cyr-Wheel- und Luftartist mit internationalem Renommee.
                   Performances, die technische Präzision mit künstlerischem Ausdruck vereinen.
                 </p>
-                <p className="text-base leading-relaxed text-earth-700/90">
+                <p className="text-base md:text-lg lg:text-xl leading-relaxed text-earth-700/90 text-center md:text-left">
                   Präzision in jeder Bewegung, perfektes Timing im Zusammenspiel von Körper und Musik,
                   absolute Kontrolle über Technik und Ausdruck.
                 </p>
-              </div>
-            </motion.div>
+              </motion.div>
+
+              {/* Quote */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="flex items-center h-full"
+              >
+                <blockquote
+                  className="text-base md:text-lg leading-relaxed text-earth-700/90 italic font-serif pl-6 pr-4 py-4 border-l-2 border-accent/40"
+                  style={{
+                    fontStyle: 'italic'
+                  }}
+                >
+                  For me, the real excitement lies in the tension—the immersive dive into the moment where suspense, timing, and control all merge. It's about creating that captivating experience for everyone.
+                </blockquote>
+              </motion.div>
+            </div>
           </div>
 
           {/* Timeline - Full Width Below */}
@@ -116,8 +134,8 @@ export default function About() {
             ref={timelineRef}
             initial={{ opacity: 0, y: 50 }}
             animate={isTimelineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-20"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-16 md:mt-20"
           >
             <h3 className="text-center text-2xl font-serif text-earth-700 mb-16 md:mb-20">
               Werdegang

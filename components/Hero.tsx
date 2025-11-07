@@ -2,49 +2,98 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    // Check if viewport is desktop size
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
+      {/* Background - Video on Desktop, Image on Mobile */}
       <div className="absolute inset-0 z-0">
-        <style jsx>{`
-          @media (max-width: 768px) {
-            .hero-image {
-              object-position: center 20% !important;
-              transform: scale(1.15);
-            }
-          }
-        `}</style>
-        <Image
-          src="/Karlo Profil.png"
-          alt="Karlo performing with Cyr Wheel"
-          fill
-          priority
-          quality={95}
-          className="object-cover hero-image"
-          sizes="100vw"
-          style={{
-            objectPosition: 'center 30%',
-            transformOrigin: 'center 30%'
-          }}
-        />
-        {/* Gradient overlay for better text readability - darker at bottom, lighter at top */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.65) 100%)'
-          }}
-        />
+        {isDesktop ? (
+          // Desktop: Video Background
+          <>
+            <div className="absolute inset-0 w-full h-full">
+              <iframe
+                src="https://www.youtube.com/embed/QTJ6lkGcF7g?autoplay=1&mute=1&loop=1&playlist=QTJ6lkGcF7g&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&start=5"
+                title="Karlo Performance Trailer"
+                allow="autoplay; encrypted-media"
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  width: '100vw',
+                  height: '100vh',
+                  transform: 'translate(-50%, -50%)',
+                  pointerEvents: 'none',
+                  border: 'none',
+                  objectFit: 'cover'
+                }}
+              />
+            </div>
+            {/* Subtle gradient overlay - minimal for video focus on Desktop */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.3) 100%)'
+              }}
+            />
+          </>
+        ) : (
+          // Mobile: Image Background
+          <>
+            <style jsx>{`
+              @media (max-width: 768px) {
+                .hero-image {
+                  object-position: center 20% !important;
+                  transform: scale(1.15);
+                }
+              }
+            `}</style>
+            <Image
+              src="/Karlo Profil.png"
+              alt="Karlo performing with Cyr Wheel"
+              fill
+              priority
+              quality={95}
+              className="object-cover hero-image"
+              sizes="100vw"
+              style={{
+                objectPosition: 'center 30%',
+                transformOrigin: 'center 30%'
+              }}
+            />
+            {/* Gradient overlay for better text readability */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.65) 100%)'
+              }}
+            />
+          </>
+        )}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container max-w-5xl px-4 pt-20">
+      {/* Content - Desktop: Bottom left, Mobile: Centered */}
+      <div className="relative z-10 container max-w-5xl px-4 pt-16 md:pt-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center space-y-6 md:space-y-8"
+          className="text-center md:text-left md:absolute md:bottom-12 md:left-8 lg:left-12 space-y-3 md:space-y-3"
         >
           {/* Name */}
           <motion.h1
@@ -52,12 +101,12 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             style={{
-              fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
+              fontSize: 'clamp(2.5rem, 8vw, 3.5rem)',
               lineHeight: '1.1',
-              marginBottom: '1.5rem',
+              marginBottom: '0.25rem',
               color: 'white',
               fontFamily: 'var(--font-serif)',
-              textShadow: '0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6)'
+              textShadow: '0 4px 12px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4)'
             }}
           >
             Karlo
@@ -69,64 +118,41 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             style={{
-              fontSize: 'clamp(0.875rem, 2vw, 1.125rem)',
-              color: 'rgba(250, 247, 242, 0.95)',
+              fontSize: 'clamp(0.875rem, 2vw, 1rem)',
+              color: 'rgba(250, 247, 242, 0.9)',
               fontWeight: '300',
               letterSpacing: '0.05em',
               textTransform: 'uppercase',
-              marginBottom: '2rem',
-              textShadow: '0 2px 6px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.5)',
+              marginBottom: '0.75rem',
+              textShadow: '0 2px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3)',
               whiteSpace: 'nowrap'
             }}
           >
             Cyr Wheel & Aerial Artist
           </motion.p>
 
-          {/* Leitmotiv Quote */}
-          <motion.blockquote
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            style={{
-              fontSize: 'clamp(1rem, 2.5vw, 1.375rem)',
-              lineHeight: '1.6',
-              color: 'rgba(250, 247, 242, 0.98)',
-              fontWeight: '300',
-              fontStyle: 'italic',
-              maxWidth: '48rem',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginBottom: '2.5rem',
-              textShadow: '0 3px 8px rgba(0, 0, 0, 0.8), 0 1px 4px rgba(0, 0, 0, 0.6)',
-              padding: '0 1rem'
-            }}
-          >
-            "For me, the real excitement lies in the tension—the immersive dive into the moment where suspense, timing, and control all merge. It's about creating that captivating experience for everyone."
-          </motion.blockquote>
-
-          {/* CTAs */}
+          {/* CTAs - Compact on Desktop */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            style={{ paddingTop: '1rem' }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start"
           >
-            <a href="#portfolio" className="btn btn-primary no-underline">
+            <a href="#portfolio" className="btn btn-primary no-underline text-sm px-4 py-2.5">
               Portfolio ansehen
             </a>
-            <a href="#contact" className="btn btn-outline no-underline bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-white/40">
+            <a href="#contact" className="btn btn-outline no-underline bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-white/40 text-sm px-4 py-2.5">
               Kontakt aufnehmen
             </a>
           </motion.div>
 
-          {/* Social Media Icons */}
+          {/* Social Media Icons - Smaller on Desktop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="flex gap-4 justify-center"
-            style={{ paddingTop: '2rem' }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="flex gap-3 justify-center md:justify-start"
+            style={{ paddingTop: '0.75rem' }}
           >
             <a
               href="https://www.instagram.com/karlojanke/"
@@ -137,31 +163,31 @@ export default function Hero() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '48px',
-                height: '48px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                backgroundColor: 'rgba(255, 255, 255, 0.12)',
                 backdropFilter: 'blur(8px)',
-                border: '2px solid rgba(255, 255, 255, 0.3)',
+                border: '1.5px solid rgba(255, 255, 255, 0.25)',
                 color: 'white',
                 transition: 'all 0.3s ease',
                 textDecoration: 'none'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                e.currentTarget.style.transform = 'scale(1.05)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
                 e.currentTarget.style.transform = 'scale(1)';
               }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -183,31 +209,31 @@ export default function Hero() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '48px',
-                height: '48px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                backgroundColor: 'rgba(255, 255, 255, 0.12)',
                 backdropFilter: 'blur(8px)',
-                border: '2px solid rgba(255, 255, 255, 0.3)',
+                border: '1.5px solid rgba(255, 255, 255, 0.25)',
                 color: 'white',
                 transition: 'all 0.3s ease',
                 textDecoration: 'none'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                e.currentTarget.style.transform = 'scale(1.05)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
                 e.currentTarget.style.transform = 'scale(1)';
               }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -222,12 +248,12 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Right side on Desktop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:right-8 lg:right-12 md:translate-x-0"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
