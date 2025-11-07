@@ -77,98 +77,141 @@ export default function Navigation() {
     }
   };
 
+  const handleMobileMenuToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsMobileMenuOpen((prev) => !prev);
+  };
+
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-earth-50/95 backdrop-blur-sm shadow-md"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <motion.button
-            onClick={() => scrollToSection("hero")}
-            className="font-serif text-2xl md:text-3xl text-earth-700 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Karlo
-          </motion.button>
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
+          isScrolled
+            ? "bg-earth-50/95 backdrop-blur-sm shadow-md"
+            : "bg-transparent"
+        }`}
+        style={{ pointerEvents: 'auto', position: 'fixed', top: 0, left: 0, right: 0 }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8" style={{ pointerEvents: 'auto' }}>
+          <div className="flex items-center justify-between h-20" style={{ pointerEvents: 'auto', position: 'relative' }}>
+            {/* Logo */}
+            <motion.button
+              onClick={() => scrollToSection("hero")}
+              className={`font-serif text-2xl md:text-3xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm ${
+                isScrolled
+                  ? "text-earth-700 hover:text-accent"
+                  : "text-white hover:text-earth-100"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="button"
+            >
+              Karlo
+            </motion.button>
 
-          {/* Navigation Items */}
-          <nav aria-label="Hauptnavigation">
-            <ul className="hidden md:flex items-center gap-8">
-              {navItems.map(({ id, label }) => (
-                <li key={id}>
-                  <button
-                    onClick={() => scrollToSection(id)}
-                    className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm px-2 py-1 ${
-                      activeSection === id
-                        ? "text-accent"
-                        : "text-earth-700 hover:text-accent"
-                    }`}
-                    aria-current={activeSection === id ? "page" : undefined}
-                  >
-                    {label}
-                    {activeSection === id && (
-                      <motion.span
-                        layoutId="activeSection"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
+            {/* Navigation Items */}
+            <nav aria-label="Hauptnavigation">
+              <ul className="hidden md:flex items-center gap-8">
+                {navItems.map(({ id, label }) => (
+                  <li key={id}>
+                    <button
+                      onClick={() => scrollToSection(id)}
+                      className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm px-2 py-1 ${
+                        isScrolled
+                          ? activeSection === id
+                            ? "text-accent"
+                            : "text-earth-700 hover:text-accent"
+                          : activeSection === id
+                            ? "text-white"
+                            : "text-white/90 hover:text-white"
+                      }`}
+                      aria-current={activeSection === id ? "page" : undefined}
+                      type="button"
+                    >
+                      {label}
+                      {activeSection === id && (
+                        <motion.span
+                          layoutId="activeSection"
+                          className={`absolute bottom-0 left-0 right-0 h-0.5 ${
+                            isScrolled ? "bg-accent" : "bg-white"
+                          }`}
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-earth-700 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            aria-label={isMobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
-            aria-expanded={isMobileMenuOpen}
-          >
-            {isMobileMenuOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            )}
-          </button>
+            {/* Mobile Menu Button - Separate z-index layer */}
+            <button
+              onClick={handleMobileMenuToggle}
+              onTouchStart={(e) => {
+                e.stopPropagation();
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleMobileMenuToggle(e as any);
+              }}
+              className={`md:hidden p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm ${
+                isScrolled
+                  ? "text-earth-700 hover:text-accent"
+                  : "text-white hover:text-earth-100"
+              }`}
+              style={{ 
+                pointerEvents: 'auto', 
+                touchAction: 'manipulation',
+                position: 'relative',
+                zIndex: 10001,
+                WebkitTapHighlightColor: 'transparent'
+              }}
+              aria-label={isMobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
+              aria-expanded={isMobileMenuOpen}
+              type="button"
+            >
+              {isMobileMenuOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                  style={{ pointerEvents: 'none' }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                  style={{ pointerEvents: 'none' }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
-      </div>
+      </motion.nav>
 
       {/* Mobile Menu - Fullscreen Overlay */}
       <AnimatePresence>
@@ -181,7 +224,8 @@ export default function Navigation() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-[100] bg-earth-900/95 backdrop-blur-md md:hidden"
+              className="fixed inset-0 z-[10000] bg-earth-900/95 backdrop-blur-md md:hidden"
+              style={{ pointerEvents: 'auto' }}
             />
 
             {/* Menu Container */}
@@ -190,11 +234,13 @@ export default function Navigation() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[110] md:hidden bg-earth-900 shadow-2xl overflow-y-auto"
+              className="fixed inset-0 z-[10001] md:hidden bg-earth-900 shadow-2xl overflow-y-auto"
+              style={{ pointerEvents: 'auto' }}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="h-full w-full flex flex-col">
                 {/* Header with Close Button */}
-                <div className="flex items-center justify-between px-6 py-6 border-b border-earth-800 bg-earth-900 sticky top-0 z-10">
+                <div className="flex items-center justify-between px-6 py-6 border-b border-earth-800 bg-earth-900 sticky top-0 z-10" style={{ paddingTop: 'calc(80px + 1.5rem)' }}>
                   <span className="font-serif text-2xl text-earth-100">Menü</span>
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -256,6 +302,6 @@ export default function Navigation() {
           </>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 }

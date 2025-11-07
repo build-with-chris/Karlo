@@ -344,10 +344,19 @@ export default function Contact() {
               </div>
 
               {/* Agency Note */}
-              <div className="bg-earth-100/50 border border-earth-200 rounded-lg p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
-                  Für Agenturen
-                </h3>
+              <div 
+                className="bg-earth-100/50 border border-earth-200 rounded-lg p-6 transition-all duration-300"
+                style={{ boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(45, 36, 28, 0.12), 0 4px 6px -4px rgba(45, 36, 28, 0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)';
+                }}
+              >
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
+                    Für Agenturen
+                  </h3>
                 <p className="text-sm text-earth-700/80 leading-relaxed mb-0">
                   Sie planen ein Event und suchen außergewöhnliche Artistik? Ich arbeite gerne
                   mit professionellen Agenturen zusammen. Kontaktieren Sie mich für Details zu

@@ -13,7 +13,7 @@ export default function Portfolio() {
 
   return (
     <>
-      <section id="portfolio" className="section bg-white/30">
+      <section id="portfolio" className="section bg-gradient-to-b from-earth-50/50 via-white/30 to-white/20">
         <div className="container max-w-7xl">
           <motion.div
             ref={ref}
@@ -59,7 +59,16 @@ export default function Portfolio() {
                   role="button"
                   aria-label={`${item.title}, ${item.location}, ${item.year} öffnen`}
                 >
-                  <div className="relative overflow-hidden rounded-lg bg-earth-100 aspect-[3/4] shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                  <div 
+                    className="relative overflow-hidden rounded-lg bg-earth-100 aspect-[3/4] shadow-md transition-all duration-300 group"
+                    style={{ boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(45, 36, 28, 0.2), 0 8px 10px -6px rgba(45, 36, 28, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)';
+                    }}
+                  >
                     {/* Image */}
                     <Image
                       src={item.thumb}
@@ -70,7 +79,7 @@ export default function Portfolio() {
                     />
 
                     {/* Hover Overlay with Title */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-earth-700/90 via-earth-700/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-earth-900/90 via-earth-800/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                       <h3 className="text-white text-base md:text-lg font-serif mb-1 mt-0 drop-shadow-md">
                         {item.title}
                       </h3>
@@ -99,7 +108,7 @@ export default function Portfolio() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-earth-700/95 backdrop-blur-sm"
+            className="fixed inset-0 z-[5000] flex items-center justify-center p-4 bg-earth-900/95 backdrop-blur-sm"
             onClick={() => setSelectedItem(null)}
             role="dialog"
             aria-modal="true"

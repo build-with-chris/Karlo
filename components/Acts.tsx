@@ -70,7 +70,7 @@ export default function Acts() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="acts" className="section">
+    <section id="acts" className="section bg-gradient-to-b from-white/20 to-earth-50/30">
       <div className="container max-w-6xl">
         <motion.div
           ref={ref}
@@ -88,7 +88,14 @@ export default function Acts() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.8, delay: 0.2 + index * 0.15 }}
-                className="card border border-earth-200 bg-white/50"
+                className="card border border-earth-200 bg-white/50 hover:shadow-xl transition-all duration-300"
+                style={{ boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(45, 36, 28, 0.15), 0 8px 10px -6px rgba(45, 36, 28, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)';
+                }}
               >
                 {/* Icon & Title */}
                 <div className="flex items-center gap-3 mb-4">
