@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const navItems = [
   { id: "hero", label: "Start" },
@@ -101,16 +102,27 @@ export default function Navigation() {
             {/* Logo */}
             <motion.button
               onClick={() => scrollToSection("hero")}
-              className={`font-serif text-2xl md:text-3xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm ${
-                isScrolled
-                  ? "text-earth-700 hover:text-accent"
-                  : "text-white hover:text-earth-100"
-              }`}
+              className="relative h-12 w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="button"
+              aria-label="Zur Startseite"
+              style={{ background: 'none', border: 'none' }}
             >
-              Karlo
+              <div className="relative h-12 w-32 md:w-40 overflow-hidden">
+                <Image
+                  src={isScrolled ? "/LogoSchwarz.png" : "/LogoWeiß.png"}
+                  alt="Karlo Logo"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                  sizes="(max-width: 768px) 128px, 160px"
+                  style={{
+                    filter: isScrolled ? 'none' : 'none',
+                    padding: '4px'
+                  }}
+                />
+              </div>
             </motion.button>
 
             {/* Navigation Items */}

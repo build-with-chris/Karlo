@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import Image from "next/image";
 
 export default function About() {
   const ref = useRef(null);
@@ -49,6 +50,24 @@ export default function About() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
+          {/* Profile Image - Small and Subtle */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center mb-6"
+          >
+            <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-3 border-accent/30 shadow-lg">
+              <Image
+                src="/Portrait.webp"
+                alt="Karlo Janke Portrait"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 80px, 96px"
+              />
+            </div>
+          </motion.div>
+
           <h2 className="text-center mb-12 md:mb-16">Über Karlo</h2>
 
           {/* Full Width Content Layout */}
@@ -101,12 +120,14 @@ export default function About() {
                 className="space-y-6"
               >
                 <p className="text-base md:text-lg lg:text-xl leading-relaxed text-earth-700/90 text-center md:text-left">
-                  Professioneller Cyr-Wheel- und Luftartist mit internationalem Renommee.
-                  Performances, die technische Präzision mit künstlerischem Ausdruck vereinen.
+                  Mein Name ist Karlo Janke und ich bin Zirkusartist. Meine Ausbildung absolvierte ich
+                  an der Schule für zeitgenössischen Zirkus „Die Etage" in Berlin, wo ich mich auf Cyr Wheel
+                  und Aerial Straps spezialisierte.
                 </p>
                 <p className="text-base md:text-lg lg:text-xl leading-relaxed text-earth-700/90 text-center md:text-left">
-                  Präzision in jeder Bewegung, perfektes Timing im Zusammenspiel von Körper und Musik,
-                  absolute Kontrolle über Technik und Ausdruck.
+                  Seit meinem Abschluss hatte ich die Gelegenheit, auf einer Vielzahl von Bühnen aufzutreten.
+                  Was ich am Zirkus am meisten schätze, ist seine Vielseitigkeit und die reine Freude am kreativen Spiel.
+                  Wo es passt, bereichere ich meine Arbeit gerne mit einer Prise Humor.
                 </p>
               </motion.div>
 
@@ -123,7 +144,7 @@ export default function About() {
                     fontStyle: 'italic'
                   }}
                 >
-                  For me, the real excitement lies in the tension—the immersive dive into the moment where suspense, timing, and control all merge. It's about creating that captivating experience for everyone.
+                  Für mich liegt der eigentliche Reiz in der Spannung – dem tiefen Eintauchen in den Moment, in dem Atemlosigkeit, Timing und Kontrolle zu einer Einheit verschmelzen. Es geht darum, für das Publikum ein wirklich fesselndes Erlebnis zu schaffen.
                 </blockquote>
               </motion.div>
             </div>
