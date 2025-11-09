@@ -72,6 +72,17 @@ export default function Acts() {
   const aerialVideoRef = useRef<HTMLVideoElement>(null);
   const aerialCardRef = useRef<HTMLDivElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Lazy loading: Load video when card is in view
   useEffect(() => {
@@ -142,7 +153,12 @@ export default function Acts() {
                     className={`card border border-earth-200 hover:shadow-xl transition-all duration-300 relative overflow-hidden ${
                       isAerial ? 'bg-transparent cursor-pointer' : 'bg-white/50'
                     }`}
-                    style={{ boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)' }}
+                    style={{ 
+                      boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+                      ...(isAerial && isMobile ? { 
+                        minHeight: '60vh'
+                      } : {})
+                    }}
                     onMouseEnter={(e) => {
                       if (!isAerial) {
                         e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(45, 36, 28, 0.15), 0 8px 10px -6px rgba(45, 36, 28, 0.1)';
@@ -354,7 +370,7 @@ export default function Acts() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[5000] flex items-start justify-center pt-24 pb-4 px-4 bg-earth-900/95 backdrop-blur-sm overflow-y-auto"
+          className="fixed inset-0 z-[5000] flex items-start justify-center pt-20 md:pt-24 pb-4 px-0 md:px-4 bg-earth-900/95 backdrop-blur-sm overflow-y-auto"
           onClick={() => setIsAerialModalOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -365,7 +381,7 @@ export default function Acts() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="relative max-w-6xl w-full bg-white rounded-lg overflow-hidden shadow-2xl"
+            className="relative max-w-6xl w-full md:rounded-lg bg-white overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -391,7 +407,7 @@ export default function Acts() {
             </button>
 
             {/* Video */}
-            <div className="relative w-full aspect-video bg-earth-900">
+            <div className="relative w-full aspect-video md:aspect-video bg-earth-900" style={{ minHeight: '50vh' }}>
               <video
                 autoPlay
                 loop
@@ -405,7 +421,7 @@ export default function Acts() {
             </div>
 
             {/* Content */}
-            <div className="p-6 md:p-8">
+            <div className="p-4 md:p-6 lg:p-8">
               <h3 id="aerial-modal-title" className="text-2xl md:text-3xl font-serif text-earth-700 mb-4 mt-0 flex items-center gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
