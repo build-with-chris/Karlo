@@ -64,7 +64,7 @@ export default function Hero() {
               }
             `}</style>
             <Image
-              src="/Cyr1.webp"
+              src="/HeroMobile.webp"
               alt="Karlo performing with Cyr Wheel"
               fill
               priority

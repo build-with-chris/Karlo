@@ -77,7 +77,7 @@ export default function About() {
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full md:hidden"
+              className="w-full md:hidden mb-8 md:mb-0"
             >
               <div
                 style={{

@@ -76,6 +76,10 @@ export default function Portfolio() {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: 'center'
+                      }}
                     />
 
                     {/* Hover Overlay with Title */}
@@ -150,7 +154,7 @@ export default function Portfolio() {
               </button>
 
               {/* Image */}
-              <div className="relative w-full aspect-[4/3] bg-earth-100">
+              <div className="relative w-full bg-earth-100" style={{ minHeight: '50vh', maxHeight: '80vh' }}>
                 <Image
                   src={selectedItem.thumb}
                   alt={selectedItem.alt}
@@ -158,6 +162,10 @@ export default function Portfolio() {
                   className="object-contain"
                   sizes="(max-width: 1280px) 100vw, 1280px"
                   priority
+                  style={{
+                    objectFit: 'contain',
+                    objectPosition: 'center'
+                  }}
                 />
               </div>
 
