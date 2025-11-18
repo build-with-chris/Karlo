@@ -83,7 +83,7 @@ const Gallery21 = () => {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-serif text-earth-700 mb-3 md:mb-4"
           >
-            Portfolio
+            Eindrücke aus meinen Shows
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

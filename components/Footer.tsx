@@ -73,13 +73,18 @@ export default function Footer() {
                 Navigation
               </h4>
               <ul className="space-y-3 ml-0">
-                {["Über Karlo", "Acts", "Portfolio", "Kontakt"].map((item) => (
-                  <li key={item}>
+                {[
+                  { label: "Über Karlo", id: "about" },
+                  { label: "Acts", id: "acts" },
+                  { label: "Eindrücke", id: "portfolio" },
+                  { label: "Kontakt", id: "contact" }
+                ].map((item) => (
+                  <li key={item.id}>
                     <a
-                      href={`#${item.toLowerCase().replace(" ", "")}`}
+                      href={`#${item.id}`}
                       className="text-earth-300 hover:text-accent transition-colors text-base no-underline"
                     >
-                      {item}
+                      {item.label}
                     </a>
                   </li>
                 ))}

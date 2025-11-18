@@ -5,6 +5,7 @@ import Acts from "@/components/Acts";
 import Portfolio from "@/components/Portfolio";
 import Contact from "@/components/Contact";
 import SiteFooter from "@/components/SiteFooter";
+import CookieBanner from "@/components/CookieBanner";
 
 export default function Home() {
   // Schema.org structured data for SEO
@@ -44,6 +45,7 @@ export default function Home() {
         <Contact />
       </main>
       <SiteFooter />
+      <CookieBanner />
     </>
   );
 }
