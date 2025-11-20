@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, FormEvent } from "react";
+import Image from "next/image";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -82,7 +83,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section bg-earth-50">
+    <section id="contact" className="section bg-earth-50 pt-6 md:pt-8 lg:pt-10">
       <div className="container max-w-6xl">
         <motion.div
           ref={ref}
@@ -374,6 +375,61 @@ export default function Contact() {
                 </div>
               </div>
 
+              {/* PepeShows Booking */}
+              <div 
+                className="bg-accent/10 border border-accent/20 rounded-lg p-5 transition-all duration-300"
+                style={{ boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(176, 138, 91, 0.15), 0 4px 6px -4px rgba(176, 138, 91, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)';
+                }}
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-lg bg-earth-800 flex items-center justify-center flex-shrink-0 p-2">
+                    <Image
+                      src="/PEPE_logos_shows.svg"
+                      alt="PepeShows Logo"
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-accent mt-0 mb-2">
+                      Direktbuchung
+                    </h3>
+                    <p className="text-sm text-earth-700/85 leading-relaxed mb-3">
+                      Fertige Acts von Karlo können Sie direkt über PepeShows buchen. 
+                      Professionelle Kommunikation und einfache Abwicklung inklusive.
+                    </p>
+                    <a
+                      href="https://pepeshows.de"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-earth-700 transition-colors"
+                    >
+                      Zu PepeShows
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-4 h-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               {/* Agency Note */}
               <div 
                 className="bg-earth-100/50 border border-earth-200 rounded-lg p-6 transition-all duration-300"
@@ -385,9 +441,9 @@ export default function Contact() {
                   e.currentTarget.style.boxShadow = '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)';
                 }}
               >
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
-                    Für Agenturen
-                  </h3>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
+                  Für Agenturen
+                </h3>
                 <p className="text-sm text-earth-700/80 leading-relaxed mb-0">
                   Sie planen ein Event und suchen außergewöhnliche Artistik? Ich arbeite gerne
                   mit professionellen Agenturen zusammen. Kontaktieren Sie mich für Details zu

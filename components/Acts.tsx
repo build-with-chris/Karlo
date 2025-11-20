@@ -199,7 +199,7 @@ export default function Acts() {
 
   return (
     <>
-      <section id="acts" className="section bg-gradient-to-b from-white/20 to-earth-50/30">
+      <section id="acts" className="section bg-gradient-to-b from-white/20 to-earth-50/30 pb-8 md:pb-12 lg:pb-14">
       <div className="container max-w-6xl">
         <motion.div
           ref={ref}
