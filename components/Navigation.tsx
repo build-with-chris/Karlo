@@ -133,13 +133,13 @@ export default function Navigation() {
             </motion.button>
 
             {/* Desktop Navigation */}
-            <nav aria-label="Hauptnavigation" className="hidden md:block">
+            <nav aria-label="Hauptnavigation" className="hidden md:flex items-center">
               <ul className="flex items-center gap-8">
                 {navItems.map(({ id, label }) => (
                   <li key={id}>
                     <button
                       onClick={() => scrollToSection(id)}
-                      className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-2 py-1 ${
+                      className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-3 pb-1 pt-3 ${
                         isScrolled
                           ? activeSection === id
                             ? "text-accent"

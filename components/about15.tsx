@@ -25,9 +25,9 @@ const About15 = () => {
               initial={{ opacity: 0, rotate: -10, scale: 0.9 }}
               animate={isInView ? { opacity: 1, rotate: -6, scale: 1 } : { opacity: 0, rotate: -10, scale: 0.9 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-[85%] lg:w-[40%] xl:w-[35%] flex-shrink-0 bg-earth-900 text-earth-50 rotate-[-6deg] border-2 border-earth-700 p-2 shadow-xl"
+              className="w-[85%] lg:w-[34%] xl:w-[30%] flex-shrink-0 bg-earth-900 text-earth-50 rotate-[-6deg] border-2 border-earth-700 p-2 shadow-xl"
             >
-              <div className="relative w-full h-[238px] lg:h-[320px] xl:h-[350px] overflow-hidden">
+              <div className="relative w-full h-[274px] lg:h-[313px] xl:h-[343px] overflow-hidden">
                 <Image
                   src="/Portrait.webp"
                   alt="Karlo Janke Portrait"
@@ -38,7 +38,7 @@ const About15 = () => {
                 />
               </div>
 
-              <div className="pb-2 pt-3 px-2">
+              <div className="pb-1.5 pt-2.5 px-2">
                 <p className="text-earth-50 text-base md:text-lg font-serif font-medium tracking-tight">
                   Karlo Janke
                 </p>
@@ -54,7 +54,7 @@ const About15 = () => {
               className="w-full lg:w-[60%] xl:w-[65%] flex flex-col lg:h-[320px] xl:h-[350px]"
             >
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-4 lg:mb-6">
-                Über Karlo
+                Zwischen Disziplin und Hingabe
               </h2>
               <div className="flex flex-col lg:justify-between lg:flex-1 space-y-3 lg:space-y-4">
                 <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">

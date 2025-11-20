@@ -197,8 +197,72 @@ export default function Acts() {
     };
   }, [isAerialModalOpen, isCyrWheelModalOpen]);
 
+  // Handle fullscreen changes for Aerial video
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (aerialModalVideoRef.current) {
+        if (document.fullscreenElement === aerialModalVideoRef.current) {
+          aerialModalVideoRef.current.style.objectFit = 'contain';
+        } else {
+          aerialModalVideoRef.current.style.objectFit = 'cover';
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, []);
+
+  // Handle fullscreen changes for Cyr Wheel video
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (cyrWheelModalVideoRef.current) {
+        if (document.fullscreenElement === cyrWheelModalVideoRef.current) {
+          cyrWheelModalVideoRef.current.style.objectFit = 'contain';
+        } else {
+          cyrWheelModalVideoRef.current.style.objectFit = 'cover';
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, []);
+
   return (
     <>
+      <style jsx global>{`
+        video:fullscreen {
+          object-fit: contain !important;
+        }
+        video:-webkit-full-screen {
+          object-fit: contain !important;
+        }
+        video:-moz-full-screen {
+          object-fit: contain !important;
+        }
+        video:-ms-fullscreen {
+          object-fit: contain !important;
+        }
+      `}</style>
       <section id="acts" className="section bg-gradient-to-b from-white/20 to-earth-50/30 pb-8 md:pb-12 lg:pb-14">
       <div className="container max-w-6xl">
         <motion.div
@@ -544,6 +608,9 @@ export default function Acts() {
                 playsInline
                 className="w-full h-full object-cover"
                 controls
+                style={{
+                  objectFit: 'cover'
+                }}
               >
                 <source src="/Straps_Trailer.mp4" type="video/mp4" />
               </video>
@@ -675,6 +742,9 @@ export default function Acts() {
                 playsInline
                 className="w-full h-full object-cover"
                 controls
+                style={{
+                  objectFit: 'cover'
+                }}
               >
                 <source src="/Cyr-Wheel_Trailer.mp4" type="video/mp4" />
               </video>
