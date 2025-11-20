@@ -65,7 +65,7 @@ export default function Hero() {
             `}</style>
             <Image
               src="/HeroMobile.webp"
-              alt="Karlo performing with Cyr Wheel"
+              alt="Karlo Janke bei einer Cyr Wheel Performance – Professioneller Zirkusartist in Aktion"
               fill
               priority
               quality={95}

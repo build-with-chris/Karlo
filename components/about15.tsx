@@ -30,7 +30,7 @@ const About15 = () => {
               <div className="relative w-full h-[274px] lg:h-[313px] xl:h-[343px] overflow-hidden">
                 <Image
                   src="/Portrait.webp"
-                  alt="Karlo Janke Portrait"
+                  alt="Karlo Janke – Professioneller Cyr Wheel & Aerial Artist Portrait"
                   fill
                   className="object-cover pointer-events-none"
                   style={{ objectPosition: 'center 30%' }}

@@ -153,7 +153,8 @@ const Gallery21 = () => {
                     <img
                       className="h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg"
                       src={image.src}
-                      alt={image.alt}
+                      alt={image.alt || `Karlo Janke Performance Moment ${index + 1}`}
+                      loading="lazy"
                     />
                   </SwiperSlide>
                 ))}

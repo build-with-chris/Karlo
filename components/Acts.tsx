@@ -341,6 +341,8 @@ export default function Acts() {
                             muted
                             playsInline
                             className="absolute inset-0 w-full h-full object-cover"
+                            title="Karlo Janke Aerial Straps Performance Trailer"
+                            aria-label="Aerial Straps Performance Video von Karlo Janke"
                             style={{
                               position: 'absolute',
                               top: 0,
@@ -445,6 +447,8 @@ export default function Acts() {
                             muted
                             playsInline
                             className="absolute inset-0 w-full h-full object-cover"
+                            title="Karlo Janke Cyr Wheel Performance Trailer"
+                            aria-label="Cyr Wheel Performance Video von Karlo Janke"
                             style={{
                               position: 'absolute',
                               top: 0,
@@ -608,6 +612,8 @@ export default function Acts() {
                 playsInline
                 className="w-full h-full object-cover"
                 controls
+                title="Karlo Janke Aerial Straps Performance Trailer"
+                aria-label="Aerial Straps Performance Video von Karlo Janke"
                 style={{
                   objectFit: 'cover'
                 }}
@@ -742,6 +748,8 @@ export default function Acts() {
                 playsInline
                 className="w-full h-full object-cover"
                 controls
+                title="Karlo Janke Cyr Wheel Performance Trailer"
+                aria-label="Cyr Wheel Performance Video von Karlo Janke"
                 style={{
                   objectFit: 'cover'
                 }}

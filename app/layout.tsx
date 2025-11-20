@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     default: "Karlo – Professioneller Cyr Wheel & Aerial Artist",
     template: "%s | Karlo",
   },
-  description: "Karlo Janke ist professioneller Zirkusartist, spezialisiert auf Cyr Wheel und Aerial Straps. Ausgebildet an der Schule für zeitgenössischen Zirkus 'Die Etage' in Berlin. Erleben Sie fesselnde Performances, die Spannung, Timing und Kontrolle vereinen.",
+  description: "Karlo Janke – Professioneller Cyr Wheel & Aerial Artist für Events, Festivals und Theater. Spezialisiert auf zeitgenössische Zirkuskunst mit dynamischen Performances. Buchen Sie jetzt für Ihre Veranstaltung.",
   keywords: [
     "Karlo Janke",
     "Karlo",
@@ -48,25 +48,28 @@ export const metadata: Metadata = {
     locale: "de_DE",
     url: "https://karlojanke.com",
     title: "Karlo – Professioneller Cyr Wheel & Aerial Artist",
-    description: "Professionelle Artistik mit Cyr Wheel und Aerial. Internationale Performances für Events, Festivals und Theater.",
+    description: "Karlo Janke – Professioneller Cyr Wheel & Aerial Artist. Fesselnde Performances für Events, Festivals und Theater. Buchen Sie jetzt Ihre maßgeschneiderte Artistik-Performance.",
     siteName: "Karlo Artist Portfolio",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Karlo performing with Cyr Wheel",
+        alt: "Karlo Janke bei einer Cyr Wheel Performance – Professioneller Zirkusartist in Aktion",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Karlo – Cyr Wheel & Aerial Artist",
-    description: "Professionelle Artistik mit Cyr Wheel und Aerial. Internationale Performances für Events, Festivals und Theater.",
+    description: "Karlo Janke – Professioneller Cyr Wheel & Aerial Artist. Fesselnde Performances für Events, Festivals und Theater. Buchen Sie jetzt Ihre maßgeschneiderte Artistik-Performance.",
     images: ["/og-image.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/LogoSchwarz.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
     apple: "/apple-touch-icon.png",
   },
   robots: {
@@ -92,6 +95,8 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="icon" type="image/svg+xml" href="/LogoSchwarz.svg" />
+        <link rel="alternate icon" href="/favicon.ico" />
       </head>
       <body className="antialiased font-sans">
         {/* Skip to main content link for accessibility */}

@@ -12,20 +12,50 @@ export default function Home() {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Karlo",
-    jobTitle: "Artist",
-    description: "Professional Cyr Wheel and Aerial Artist specializing in contemporary circus performances",
+    name: "Karlo Janke",
+    givenName: "Karlo",
+    familyName: "Janke",
+    jobTitle: "Cyr Wheel & Aerial Artist",
+    description: "Professioneller Zirkusartist spezialisiert auf Cyr Wheel und Aerial Straps. Ausgebildet an der Schule für zeitgenössischen Zirkus 'Die Etage' in Berlin. Performances für Events, Festivals und Theater.",
     email: "karlo.janke@hotmail.de",
+    telephone: "+4915789115708",
+    url: "https://karlojanke.com",
     sameAs: [
       "https://www.instagram.com/karlojanke/",
       "https://www.youtube.com/@karlojanke"
     ],
     performerIn: {
       "@type": "Event",
-      name: "International Circus Performances"
+      name: "Zirkusperformances und Artistik-Shows",
+      eventType: "Performance"
     },
-    knowsAbout: ["Cyr Wheel", "Aerial Arts", "Contemporary Circus", "Stage Performance"],
-    alumniOf: "Professional Circus Training",
+    knowsAbout: [
+      "Cyr Wheel",
+      "Aerial Arts",
+      "Aerial Straps",
+      "Zeitgenössischer Zirkus",
+      "Contemporary Circus",
+      "Stage Performance",
+      "Event Entertainment",
+      "Artistik"
+    ],
+    alumniOf: {
+      "@type": "EducationalOrganization",
+      name: "Die Etage - Schule für zeitgenössischen Zirkus",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Berlin",
+        addressCountry: "DE"
+      }
+    },
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "Zirkusartist",
+      occupationLocation: {
+        "@type": "Country",
+        name: "Deutschland"
+      }
+    }
   };
 
   return (
