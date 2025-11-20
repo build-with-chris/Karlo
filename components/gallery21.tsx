@@ -72,9 +72,9 @@ const Gallery21 = () => {
   }
   `;
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-12 md:py-16 lg:py-16">
       <style>{css}</style>
-      <div className="container relative flex max-w-6xl flex-col items-center gap-12 overflow-x-clip px-4">
+      <div className="container relative flex max-w-6xl flex-col items-center gap-8 lg:gap-10 overflow-x-clip px-4">
         {/* Header */}
         <div className="text-center w-full mb-4">
           <motion.h2

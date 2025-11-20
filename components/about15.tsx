@@ -25,9 +25,9 @@ const About15 = () => {
               initial={{ opacity: 0, rotate: -10, scale: 0.9 }}
               animate={isInView ? { opacity: 1, rotate: -6, scale: 1 } : { opacity: 0, rotate: -10, scale: 0.9 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full lg:w-[40%] xl:w-[35%] flex-shrink-0 bg-earth-900 text-earth-50 rotate-[-6deg] border-2 border-earth-700 p-2 shadow-xl"
+              className="w-[85%] lg:w-[40%] xl:w-[35%] flex-shrink-0 bg-earth-900 text-earth-50 rotate-[-6deg] border-2 border-earth-700 p-2 shadow-xl"
             >
-              <div className="relative w-full h-[280px] lg:h-[320px] xl:h-[350px] overflow-hidden">
+              <div className="relative w-full h-[238px] lg:h-[320px] xl:h-[350px] overflow-hidden">
                 <Image
                   src="/Portrait.webp"
                   alt="Karlo Janke Portrait"
@@ -84,10 +84,10 @@ const About15 = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-8 md:mt-12 lg:mt-20 w-full"
+            className="mt-12 md:mt-16 lg:mt-20 w-full"
           >
-            <div className="bg-earth-100/50 border-2 border-accent/30 rounded-lg p-6 md:p-8 lg:p-10 shadow-lg w-full max-w-5xl mx-auto">
-              <blockquote className="text-lg md:text-xl lg:text-2xl leading-relaxed text-earth-700 italic font-serif text-center">
+            <div className="bg-earth-100/50 border-2 border-accent/30 rounded-lg p-5 md:p-6 lg:p-8 shadow-lg w-full max-w-5xl mx-auto">
+              <blockquote className="text-base md:text-lg lg:text-xl leading-relaxed text-earth-700 italic font-serif text-center">
                 Für mich liegt der eigentliche Reiz in der Spannung – dem tiefen Eintauchen in den Moment, in dem Atemlosigkeit, Timing und Kontrolle zu einer Einheit verschmelzen. Es geht darum, für das Publikum ein wirklich fesselndes Erlebnis zu schaffen.
               </blockquote>
             </div>

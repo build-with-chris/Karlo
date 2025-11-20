@@ -90,9 +90,9 @@ export default function Contact() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-center mb-10">Kontakt</h2>
+          <h2 className="text-center mb-8 lg:mb-10">Kontakt</h2>
 
-          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
+          <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
             {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}

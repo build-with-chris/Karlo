@@ -200,29 +200,38 @@ export default function Acts() {
   return (
     <>
       <section id="acts" className="section bg-gradient-to-b from-white/20 to-earth-50/30">
-        <div className="container max-w-6xl">
-          <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-center mb-6 md:mb-8">Meine Stärken</h2>
-            
+      <div className="container max-w-6xl">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+        >
             {/* Row 1: Text Left, Aerial Video Right */}
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-8 lg:mb-12">
-              {/* Left: Introduction Text - Order 2 on mobile, 1 on desktop */}
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-8 lg:mb-10">
+              {/* Left: Introduction Text with Heading - Order 2 on mobile, 1 on desktop */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className="flex items-center order-2 md:order-1"
+                className="flex items-start order-2 md:order-1"
               >
-                <p className="text-base md:text-lg lg:text-xl text-earth-700/85 leading-relaxed">
-                  Als vielseitiger Artist passe ich mich flexibel an jede Veranstaltung und Bühne an. 
-                  Ob intime Theaterbühne oder große Open-Air-Events – meine Performances werden individuell 
-                  auf Ihre Anforderungen und den verfügbaren Raum abgestimmt.
-                </p>
+                <div className="w-full">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-0 mt-0 mb-6 md:mb-8 lg:mb-10">Meine Stärken</h2>
+                  <div className="space-y-4">
+                    <p className="text-sm md:text-base lg:text-lg text-earth-700/90 leading-relaxed">
+                      Als vielseitiger Artist passe ich mich flexibel an jede Veranstaltung und Bühne an. 
+                      Ob intime Theaterbühne oder große Open-Air-Events – meine Performances werden individuell 
+                      auf Ihre Anforderungen und den verfügbaren Raum abgestimmt.
+                    </p>
+                    <div className="pt-2 border-t border-earth-200/60">
+                      <p className="text-sm md:text-base lg:text-lg text-earth-700/90 leading-relaxed">
+                        Entdecken Sie meine beiden Hauptdisziplinen und erfahren Sie mehr über die technischen 
+                        Anforderungen und Möglichkeiten jeder Performance.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
 
               {/* Right: Aerial Video Card - Order 1 on mobile, 2 on desktop */}
@@ -328,7 +337,7 @@ export default function Acts() {
             </div>
 
             {/* Row 2: Cyr Wheel Video Left, Custom Acts Card Right */}
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-8 lg:mb-10">
               {/* Left: Cyr Wheel Video Card */}
               {(() => {
                 const act = acts.find(a => a.title === "Cyr Wheel");
@@ -398,11 +407,11 @@ export default function Acts() {
 
                     {/* Content */}
                     <div className="relative z-10 text-white">
-                      {/* Icon & Title */}
-                      <div className="flex items-center gap-3 mb-4">
+                {/* Icon & Title */}
+                <div className="flex items-center gap-3 mb-4">
                         <div className="text-white">{act.icon}</div>
                         <h3 className="text-xl mt-0 mb-0 font-serif text-white">
-                          {act.title}
+                    {act.title}
                         </h3>
                       </div>
 
@@ -438,17 +447,16 @@ export default function Acts() {
                 className="flex items-center"
               >
                 <div
-                  className="bg-earth-100/50 border border-earth-200 rounded-lg text-center w-full"
+                  className="bg-earth-100/50 border border-earth-200 rounded-lg w-full"
                   style={{
                     padding: '2rem 1.5rem',
                     minWidth: '280px'
                   }}
                 >
                   <h3
-                    className="font-serif text-earth-700 mt-0"
+                    className="font-serif text-earth-700 mt-0 mb-4 text-left"
                     style={{
-                      fontSize: '1.125rem',
-                      marginBottom: '0.75rem',
+                      fontSize: '1.25rem',
                       lineHeight: '1.4',
                       width: '100%'
                     }}
@@ -456,10 +464,10 @@ export default function Acts() {
                     Individuelle Anpassung
                   </h3>
                   <p
-                    className="text-earth-700/85"
+                    className="text-earth-700/90 text-left"
                     style={{
-                      fontSize: '0.875rem',
-                      lineHeight: '1.6',
+                      fontSize: '0.9375rem',
+                      lineHeight: '1.7',
                       marginBottom: '1.5rem',
                       width: '100%'
                     }}
@@ -564,50 +572,50 @@ export default function Acts() {
                 Aerial
               </h3>
 
-              {/* Description */}
+                {/* Description */}
               <p className="text-base leading-relaxed mb-6 text-earth-700/85">
                 {acts.find(act => act.title === "Aerial")?.description}
-              </p>
+                </p>
 
-              {/* Key Facts */}
+                {/* Key Facts */}
               <div className="space-y-3 mb-6">
                 <h4 className="text-xs font-semibold uppercase tracking-widest mb-3 text-earth-500">
-                  Key Facts
-                </h4>
-                <dl className="space-y-2">
+                    Key Facts
+                  </h4>
+                  <dl className="space-y-2">
                   {acts.find(act => act.title === "Aerial")?.keyfacts.map((fact) => (
-                    <div
-                      key={fact.label}
-                      className="flex justify-between items-baseline text-sm border-b border-earth-200/50 pb-1"
-                    >
-                      <dt className="text-earth-700/70">{fact.label}</dt>
-                      <dd className="font-medium text-earth-700">{fact.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+                      <div
+                        key={fact.label}
+                        className="flex justify-between items-baseline text-sm border-b border-earth-200/50 pb-1"
+                      >
+                        <dt className="text-earth-700/70">{fact.label}</dt>
+                        <dd className="font-medium text-earth-700">{fact.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
 
-              {/* Tech Rider */}
+                {/* Tech Rider */}
               <p className="text-xs mt-4 flex items-center gap-2 text-accent">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="12" y1="18" x2="12" y2="12"></line>
-                  <line x1="9" y1="15" x2="15" y2="15"></line>
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="12" y1="18" x2="12" y2="12"></line>
+                    <line x1="9" y1="15" x2="15" y2="15"></line>
+                  </svg>
                 {acts.find(act => act.title === "Aerial")?.techRider}
-              </p>
-            </div>
+                </p>
+          </div>
           </motion.div>
         </motion.div>
       )}
