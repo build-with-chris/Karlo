@@ -50,7 +50,8 @@ const Gallery21 = () => {
   
   @media (max-width: 768px) {
     .mySwiper21 .swiper-slide {
-      width: 350px;
+      width: 100vw;
+      max-width: 100vw;
     }
     .mySwiper21 {
       height: 400px;
@@ -74,7 +75,7 @@ const Gallery21 = () => {
   return (
     <div>
       <style>{css}</style>
-      <div className="container relative flex max-w-6xl flex-col items-center gap-8 lg:gap-10 overflow-x-clip px-4 py-4 md:py-6 lg:py-8">
+      <div className="container relative flex max-w-6xl flex-col items-center gap-8 lg:gap-10 overflow-x-clip px-4 md:px-4 py-4 md:py-6 lg:py-8">
         {/* Header */}
         <div className="text-center w-full mb-4">
           <motion.h2
@@ -94,12 +95,15 @@ const Gallery21 = () => {
             Ausgewählte Momente
           </motion.p>
         </div>
+      </div>
 
+      {/* Swiper section - full width on mobile */}
+      <div className="relative w-full overflow-x-clip">
         {/* Left and right mask */}
-        <div className="pointer-events-none absolute left-0 z-10 h-full w-24 bg-gradient-to-r from-earth-50/50 to-transparent" />
-        <div className="pointer-events-none absolute right-0 z-10 h-full w-24 bg-gradient-to-l from-earth-50/50 to-transparent" />
+        <div className="pointer-events-none absolute left-0 z-10 h-full w-24 bg-gradient-to-r from-earth-50/20 md:from-earth-50/50 to-transparent" />
+        <div className="pointer-events-none absolute right-0 z-10 h-full w-24 bg-gradient-to-l from-earth-50/20 md:from-earth-50/50 to-transparent" />
 
-        <div className="relative h-[500px] w-full max-w-6xl">
+        <div className="relative h-[500px] w-full max-w-6xl mx-auto">
           {domLoaded && shuffledImages.length > 0 && (
             <motion.div
               className="relative h-full w-full"
@@ -131,8 +135,8 @@ const Gallery21 = () => {
                 modules={[EffectCoverflow, Autoplay]}
                 breakpoints={{
                   320: {
-                    slidesPerView: 1.2,
-                    spaceBetween: 20,
+                    slidesPerView: 1.1,
+                    spaceBetween: 10,
                   },
                   640: {
                     slidesPerView: 1.5,

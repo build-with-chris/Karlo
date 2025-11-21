@@ -271,17 +271,28 @@ export default function Acts() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
+            {/* Mobile: Heading at top */}
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8 }}
+              className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-6 md:mb-0 md:hidden"
+            >
+              Artistik für jede Bühne
+            </motion.h2>
+
             {/* Row 1: Text Left, Aerial Video Right */}
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-8 lg:mb-10">
-              {/* Left: Introduction Text with Heading - Order 2 on mobile, 1 on desktop */}
+              {/* Left: Introduction Text with Heading - Order 3 on mobile (after videos), 1 on desktop */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className="flex items-start order-2 md:order-1"
+                className="flex items-start order-3 md:order-1"
               >
                 <div className="w-full">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-0 mt-0 mb-6 md:mb-8 lg:mb-10">Meine Stärken</h2>
+                  {/* Desktop: Heading inside text block */}
+                  <h2 className="hidden md:block text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-0 mt-0 mb-6 md:mb-8 lg:mb-10">Vielseitige Artistik für jeden Anlass</h2>
                   <div className="space-y-4">
                     <p className="text-sm md:text-base lg:text-lg text-earth-700/90 leading-relaxed">
                       Als vielseitiger Artist passe ich mich flexibel an jede Veranstaltung und Bühne an. 
@@ -404,7 +415,7 @@ export default function Acts() {
 
             {/* Row 2: Cyr Wheel Video Left, Custom Acts Card Right */}
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-8 lg:mb-10">
-              {/* Left: Cyr Wheel Video Card */}
+              {/* Left: Cyr Wheel Video Card - Order 4 on mobile, 1 on desktop */}
               {(() => {
                 const act = acts.find(a => a.title === "Cyr Wheel");
                 if (!act) return null;
@@ -414,7 +425,7 @@ export default function Acts() {
                     initial={{ opacity: 0, x: -30 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="card border border-earth-200 hover:shadow-xl transition-all duration-300 relative overflow-hidden bg-transparent cursor-pointer"
+                    className="card border border-earth-200 hover:shadow-xl transition-all duration-300 relative overflow-hidden bg-transparent cursor-pointer order-4 md:order-1"
                     style={{ 
                       boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
                       minHeight: isMobile ? '60vh' : '500px'
@@ -507,12 +518,12 @@ export default function Acts() {
                 );
               })()}
 
-              {/* Right: Custom Acts Callout */}
+              {/* Right: Custom Acts Callout - Order 5 on mobile, 2 on desktop */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex items-center"
+                className="flex items-center order-5 md:order-2"
               >
                 <div
                   className="bg-earth-100/50 border border-earth-200 rounded-lg w-full"

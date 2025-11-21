@@ -87,7 +87,7 @@ export default function Hero() {
             <div
               className="absolute bottom-0 left-0 right-0 h-32 md:hidden"
               style={{
-                background: 'linear-gradient(to bottom, transparent 0%, rgba(250, 247, 242, 0.3) 40%, rgba(250, 247, 242, 0.6) 70%, rgba(250, 247, 242, 0.9) 90%, rgba(250, 247, 242, 1) 100%)'
+                background: 'linear-gradient(to bottom, transparent 0%, rgba(250, 247, 242, 0.15) 40%, rgba(250, 247, 242, 0.3) 70%, rgba(250, 247, 242, 0.5) 90%, rgba(250, 247, 242, 0.7) 100%)'
               }}
             />
           </>
