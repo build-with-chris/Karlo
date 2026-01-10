@@ -3,22 +3,24 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-
-const navItems = [
-  { id: "hero", label: "Start" },
-  { id: "about", label: "Über Karlo" },
-  { id: "acts", label: "Acts" },
-  { id: "portfolio", label: "Eindrücke" },
-  { id: "contact", label: "Kontakt" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const MOBILE_BUTTON_SIZE = 44; // Apple's recommended minimum touch target
 const NAV_HEIGHT = 80;
 
 export default function Navigation() {
+  const { language, setLanguage, t } = useLanguage();
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { id: "hero", label: t.nav.start },
+    { id: "about", label: t.nav.about },
+    { id: "acts", label: t.nav.acts },
+    { id: "portfolio", label: t.nav.portfolio },
+    { id: "contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     // Scroll-Tracking für Hintergrund-Effekt
@@ -113,7 +115,7 @@ export default function Navigation() {
             {/* Logo */}
             <motion.button
               onClick={() => scrollToSection("hero")}
-              className="relative h-12 w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+              className="relative h-12 w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded flex-shrink-0"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="button"
@@ -132,14 +134,14 @@ export default function Navigation() {
               </div>
             </motion.button>
 
-            {/* Desktop Navigation */}
-            <nav aria-label="Hauptnavigation" className="hidden md:flex items-center">
-              <ul className="flex items-center gap-8">
+            {/* Desktop Navigation - Centered horizontally, vertically aligned */}
+            <nav aria-label="Hauptnavigation" className="hidden md:flex items-center justify-center flex-1 h-full">
+              <ul className="flex items-center gap-8 h-full">
                 {navItems.map(({ id, label }) => (
-                  <li key={id}>
+                  <li key={id} className="flex items-center h-full">
                     <button
                       onClick={() => scrollToSection(id)}
-                      className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-3 pb-1 pt-3 ${
+                      className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-3 h-full flex items-center ${
                         isScrolled
                           ? activeSection === id
                             ? "text-accent"
@@ -166,6 +168,48 @@ export default function Navigation() {
                 ))}
               </ul>
             </nav>
+
+            {/* Language Toggler - Right */}
+            <div className="hidden md:flex items-center flex-shrink-0">
+              <div className={`flex items-center gap-1 rounded-lg border p-1 ${
+                isScrolled
+                  ? "border-earth-300 bg-earth-50/50"
+                  : "border-white/30 bg-white/10 backdrop-blur-sm"
+              }`}>
+                <button
+                  onClick={() => setLanguage("de")}
+                  className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
+                    language === "de"
+                      ? isScrolled
+                        ? "bg-accent text-white"
+                        : "bg-white/20 text-white"
+                      : isScrolled
+                      ? "text-earth-700 hover:text-accent"
+                      : "text-white/70 hover:text-white"
+                  }`}
+                  aria-label="Deutsch"
+                  type="button"
+                >
+                  DE
+                </button>
+                <button
+                  onClick={() => setLanguage("en")}
+                  className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
+                    language === "en"
+                      ? isScrolled
+                        ? "bg-accent text-white"
+                        : "bg-white/20 text-white"
+                      : isScrolled
+                      ? "text-earth-700 hover:text-accent"
+                      : "text-white/70 hover:text-white"
+                  }`}
+                  aria-label="English"
+                  type="button"
+                >
+                  EN
+                </button>
+              </div>
+            </div>
 
             {/* Mobile Menu Toggle Button */}
             <button
@@ -237,9 +281,9 @@ export default function Navigation() {
               {/* Navigation Items - Centered vertically */}
               <nav
                 aria-label="Mobile Navigation"
-                className="flex-1 flex items-center justify-center px-8 py-12"
+                className="flex-1 flex flex-col items-center justify-center px-8 py-12"
               >
-                <ul className="w-full space-y-5">
+                <ul className="w-full space-y-5 mb-8">
                   {navItems.map(({ id, label }, index) => (
                     <motion.li
                       key={id}
@@ -271,6 +315,40 @@ export default function Navigation() {
                     </motion.li>
                   ))}
                 </ul>
+
+                {/* Language Toggler - Mobile */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ delay: navItems.length * 0.05 + 0.1, duration: 0.3 }}
+                  className="flex items-center gap-1 rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm p-1"
+                >
+                  <button
+                    onClick={() => setLanguage("de")}
+                    className={`px-4 py-2 text-sm font-medium rounded transition-all ${
+                      language === "de"
+                        ? "bg-accent text-white"
+                        : "text-white/70 hover:text-white"
+                    }`}
+                    aria-label="Deutsch"
+                    type="button"
+                  >
+                    DE
+                  </button>
+                  <button
+                    onClick={() => setLanguage("en")}
+                    className={`px-4 py-2 text-sm font-medium rounded transition-all ${
+                      language === "en"
+                        ? "bg-accent text-white"
+                        : "text-white/70 hover:text-white"
+                    }`}
+                    aria-label="English"
+                    type="button"
+                  >
+                    EN
+                  </button>
+                </motion.div>
               </nav>
             </div>
           </motion.div>

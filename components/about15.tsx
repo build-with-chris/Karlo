@@ -5,8 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const About15 = () => {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -25,16 +27,16 @@ const About15 = () => {
               initial={{ opacity: 0, rotate: -10, scale: 0.9 }}
               animate={isInView ? { opacity: 1, rotate: -6, scale: 1 } : { opacity: 0, rotate: -10, scale: 0.9 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-[85%] lg:w-[34%] xl:w-[30%] flex-shrink-0 bg-earth-900 text-earth-50 rotate-[-6deg] border-2 border-earth-700 p-2 shadow-xl"
+              className="w-[85%] md:w-[50%] lg:w-[34%] xl:w-[30%] flex-shrink-0 bg-earth-900 text-earth-50 rotate-[-6deg] border-2 border-earth-700 p-2 shadow-xl"
             >
-              <div className="relative w-full h-[274px] lg:h-[313px] xl:h-[343px] overflow-hidden">
+              <div className="relative w-full h-[274px] md:h-[380px] lg:h-[313px] xl:h-[343px] overflow-hidden">
                 <Image
                   src="/Portrait.webp"
                   alt="Karlo Janke – Professioneller Cyr Wheel & Aerial Artist Portrait"
                   fill
                   className="object-cover pointer-events-none"
-                  style={{ objectPosition: 'center 30%' }}
-                  sizes="(max-width: 1024px) 100vw, 35vw"
+                  style={{ objectPosition: 'center center' }}
+                  sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 35vw"
                 />
               </div>
 
@@ -54,27 +56,27 @@ const About15 = () => {
               className="w-full lg:w-[60%] xl:w-[65%] flex flex-col lg:h-[320px] xl:h-[350px]"
             >
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-4 lg:mb-6">
-                Zwischen Disziplin und Hingabe
+                {t.about.title}
               </h2>
               <div className="flex flex-col lg:justify-between lg:flex-1 space-y-3 lg:space-y-4">
                 <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
-                  Mein Name ist Karlo Janke und ich bin Zirkusartist. Meine Ausbildung absolvierte ich
-                  an der Schule für zeitgenössischen Zirkus „Die Etage" in Berlin, wo ich mich auf Cyr Wheel
-                  und Aerial Straps spezialisierte.
+                  {t.about.paragraph1}
                 </p>
-                <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
-                  Seit meinem Abschluss hatte ich die Gelegenheit, auf einer Vielzahl von Bühnen aufzutreten.
-                  Von intimen Theaterbühnen bis hin zu großen Open-Air-Events – jede Bühne bietet ihre eigenen
-                  Herausforderungen und Möglichkeiten.
-                </p>
-                <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
-                  Was ich am Zirkus am meisten schätze, ist seine Vielseitigkeit und die reine Freude am kreativen Spiel.
-                  Die Verbindung von körperlicher Präzision mit künstlerischem Ausdruck fasziniert mich jeden Tag aufs Neue.
-                </p>
-                <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
-                  Wo es passt, bereichere ich meine Arbeit gerne mit einer Prise Humor. Denn auch in der
-                  Ernsthaftigkeit der Artistik sollte der Spaß und die Leichtigkeit nicht zu kurz kommen.
-                </p>
+                {t.about.paragraph2 && (
+                  <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
+                    {t.about.paragraph2}
+                  </p>
+                )}
+                {t.about.paragraph3 && (
+                  <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
+                    {t.about.paragraph3}
+                  </p>
+                )}
+                {t.about.paragraph4 && (
+                  <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
+                    {t.about.paragraph4}
+                  </p>
+                )}
               </div>
             </motion.div>
           </div>
@@ -88,7 +90,7 @@ const About15 = () => {
           >
             <div className="bg-earth-100/50 border-2 border-accent/30 rounded-lg p-5 md:p-6 lg:p-8 shadow-lg w-full max-w-5xl mx-auto">
               <blockquote className="text-base md:text-lg lg:text-xl leading-relaxed text-earth-700 italic font-serif text-center">
-                Für mich liegt der eigentliche Reiz in der Spannung – dem tiefen Eintauchen in den Moment, in dem Atemlosigkeit, Timing und Kontrolle zu einer Einheit verschmelzen. Es geht darum, für das Publikum ein wirklich fesselndes Erlebnis zu schaffen.
+                {t.about.quote}
               </blockquote>
             </div>
           </motion.div>

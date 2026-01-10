@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLanguage();
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -138,7 +140,7 @@ export default function Hero() {
               textAlign: 'center'
             }}
           >
-            Cyr Wheel & Aerial Artist
+            {t.hero.tagline}
           </motion.p>
         </motion.div>
 
@@ -161,10 +163,10 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <a href="#portfolio" className="btn btn-primary no-underline text-sm px-4 py-2.5">
-              Portfolio ansehen
+              {t.hero.portfolioButton}
             </a>
             <a href="#contact" className="btn btn-outline no-underline bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-white/40 text-sm px-4 py-2.5">
-              Kontakt aufnehmen
+              {t.hero.contactButton}
             </a>
           </motion.div>
         </motion.div>
@@ -211,7 +213,7 @@ export default function Hero() {
               textAlign: 'left'
             }}
           >
-            Cyr Wheel & Aerial Artist
+            {t.hero.tagline}
           </motion.p>
 
           {/* CTAs - Compact on Desktop */}
@@ -222,10 +224,10 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-3 justify-start"
           >
             <a href="#portfolio" className="btn btn-primary no-underline text-sm px-4 py-2.5">
-              Portfolio ansehen
+              {t.hero.portfolioButton}
             </a>
             <a href="#contact" className="btn btn-outline no-underline bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-white/40 text-sm px-4 py-2.5">
-              Kontakt aufnehmen
+              {t.hero.contactButton}
             </a>
           </motion.div>
 

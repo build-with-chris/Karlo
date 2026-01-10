@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function SiteFooter() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -17,7 +19,7 @@ export default function SiteFooter() {
         >
           {/* Copyright */}
           <p className="text-sm text-earth-700/70 mb-0">
-            © {currentYear} Karlo. Alle Rechte vorbehalten.
+            {t.footer.copyright.replace("{year}", currentYear.toString())}
           </p>
 
           {/* Minimal Links */}
@@ -26,13 +28,13 @@ export default function SiteFooter() {
               href="/impressum"
               className="text-sm text-earth-700/70 hover:text-accent transition-colors no-underline"
             >
-              Impressum
+              {t.footer.impressum}
             </a>
             <a
               href="/datenschutz"
               className="text-sm text-earth-700/70 hover:text-accent transition-colors no-underline"
             >
-              Datenschutz
+              {t.footer.datenschutz}
             </a>
           </nav>
         </motion.div>

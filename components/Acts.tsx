@@ -3,73 +3,74 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-
-const acts = [
-  {
-    title: "Cyr Wheel",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="10"></circle>
-        <circle cx="12" cy="12" r="6"></circle>
-        <line x1="12" y1="2" x2="12" y2="22"></line>
-        <line x1="2" y1="12" x2="22" y2="12"></line>
-      </svg>
-    ),
-    description:
-      "Kraft, Eleganz und Präzision im großen Rad. Dynamische Rotationen verschmelzen mit akrobatischer Finesse zu einem hypnotisierenden visuellen Erlebnis.",
-    keyfacts: [
-      { label: "Bühnenfläche", value: "6 × 6 m" },
-      { label: "Deckenhöhe", value: "min. 4 m" },
-      { label: "Dauer", value: "5–8 Min." },
-    ],
-    techRider: "Tech-Rider verfügbar",
-  },
-  {
-    title: "Aerial",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 2v20"></path>
-        <path d="M8 6c0 4-1 8-4 10"></path>
-        <path d="M16 6c0 4 1 8 4 10"></path>
-        <circle cx="12" cy="4" r="2"></circle>
-      </svg>
-    ),
-    description:
-      "Schwerelos in der Vertikalen. Grazie verbindet sich mit athletischer Kontrolle zu Momenten poetischer Spannung. Elegant, kraftvoll, präzise.",
-    keyfacts: [
-      { label: "Bühnenfläche", value: "4 × 4 m" },
-      { label: "Deckenhöhe", value: "min. 6 m" },
-      { label: "Dauer", value: "4–7 Min." },
-    ],
-    techRider: "Tech-Rider verfügbar",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Acts() {
+  const { t, language } = useLanguage();
+
+  const acts = [
+    {
+      title: t.acts.cyrWheel.title,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="6"></circle>
+          <line x1="12" y1="2" x2="12" y2="22"></line>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+        </svg>
+      ),
+      description: t.acts.cyrWheel.description,
+      keyfacts: [
+        { label: t.acts.cyrWheel.stageArea, value: "6 × 6 m" },
+        { label: t.acts.cyrWheel.ceilingHeight, value: "min. 4 m" },
+        { label: t.acts.cyrWheel.duration, value: "5–8 Min." },
+      ],
+      techRider: t.acts.cyrWheel.techRider,
+    },
+    {
+      title: t.acts.aerial.title,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 2v20"></path>
+          <path d="M8 6c0 4-1 8-4 10"></path>
+          <path d="M16 6c0 4 1 8 4 10"></path>
+          <circle cx="12" cy="4" r="2"></circle>
+        </svg>
+      ),
+      description: t.acts.aerial.description,
+      keyfacts: [
+        { label: t.acts.aerial.stageArea, value: "4 × 4 m" },
+        { label: t.acts.aerial.ceilingHeight, value: "min. 6 m" },
+        { label: t.acts.aerial.duration, value: "4–7 Min." },
+      ],
+      techRider: t.acts.aerial.techRider,
+    },
+  ];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isAerialModalOpen, setIsAerialModalOpen] = useState(false);
   const [isCyrWheelModalOpen, setIsCyrWheelModalOpen] = useState(false);
+  const [isHeroVideoModalOpen, setIsHeroVideoModalOpen] = useState(false);
   const aerialVideoRef = useRef<HTMLVideoElement>(null);
   const cyrWheelVideoRef = useRef<HTMLVideoElement>(null);
   const aerialModalVideoRef = useRef<HTMLVideoElement>(null);
@@ -278,7 +279,7 @@ export default function Acts() {
               transition={{ duration: 0.8 }}
               className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-6 md:mb-0 md:hidden"
             >
-              Artistik für jede Bühne
+              {t.acts.title}
             </motion.h2>
 
             {/* Row 1: Text Left, Aerial Video Right */}
@@ -292,17 +293,16 @@ export default function Acts() {
               >
                 <div className="w-full">
                   {/* Desktop: Heading inside text block */}
-                  <h2 className="hidden md:block text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-0 mt-0 mb-6 md:mb-8 lg:mb-10">Vielseitige Artistik für jeden Anlass</h2>
+                  <h2 className="hidden md:block text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-0 mt-0 mb-6 md:mb-8 lg:mb-10">
+                    {t.acts.introTitle}
+                  </h2>
                   <div className="space-y-4">
                     <p className="text-sm md:text-base lg:text-lg text-earth-700/90 leading-relaxed">
-                      Als vielseitiger Artist passe ich mich flexibel an jede Veranstaltung und Bühne an. 
-                      Ob intime Theaterbühne oder große Open-Air-Events – meine Performances werden individuell 
-                      auf Ihre Anforderungen und den verfügbaren Raum abgestimmt.
+                      {t.acts.introParagraph1}
                     </p>
                     <div className="pt-2 border-t border-earth-200/60">
                       <p className="text-sm md:text-base lg:text-lg text-earth-700/90 leading-relaxed">
-                        Entdecken Sie meine beiden Hauptdisziplinen und erfahren Sie mehr über die technischen 
-                        Anforderungen und Möglichkeiten jeder Performance.
+                        {t.acts.introParagraph2}
                       </p>
                     </div>
                   </div>
@@ -540,7 +540,7 @@ export default function Acts() {
                       width: '100%'
                     }}
                   >
-                    Individuelle Anpassung
+                    {t.acts.customActs.title}
                   </h3>
                   <p
                     className="text-earth-700/90 text-left"
@@ -551,16 +551,14 @@ export default function Acts() {
                       width: '100%'
                     }}
                   >
-                    Jede Veranstaltung ist einzigartig. Ich entwickle maßgeschneiderte Performances, die sich 
-                    perfekt an Ihre Bühne, Ihr Publikum und Ihre Vision anpassen. Von der Choreografie bis zur 
-                    technischen Umsetzung – alles wird individuell auf Ihre Bedürfnisse abgestimmt.
+                    {t.acts.customActs.description}
                   </p>
                   <a
                     href="#contact"
                     className="btn btn-outline no-underline"
                     style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                   >
-                    Anfrage senden
+                    {t.acts.customActs.contact}
                   </a>
                 </div>
               </motion.div>
@@ -658,16 +656,16 @@ export default function Acts() {
 
                 {/* Description */}
               <p className="text-base leading-relaxed mb-6 text-earth-700/85">
-                {acts.find(act => act.title === "Aerial")?.description}
+                {acts.find(act => act.title === t.acts.aerial.title)?.description}
                 </p>
 
                 {/* Key Facts */}
               <div className="space-y-3 mb-6">
                 <h4 className="text-xs font-semibold uppercase tracking-widest mb-3 text-earth-500">
-                    Key Facts
+                    {t.acts.aerial.keyFacts}
                   </h4>
                   <dl className="space-y-2">
-                  {acts.find(act => act.title === "Aerial")?.keyfacts.map((fact) => (
+                  {acts.find(act => act.title === t.acts.aerial.title)?.keyfacts.map((fact) => (
                       <div
                         key={fact.label}
                         className="flex justify-between items-baseline text-sm border-b border-earth-200/50 pb-1"
@@ -678,27 +676,6 @@ export default function Acts() {
                     ))}
                   </dl>
                 </div>
-
-                {/* Tech Rider */}
-              <p className="text-xs mt-4 flex items-center gap-2 text-accent">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="12" y1="18" x2="12" y2="12"></line>
-                    <line x1="9" y1="15" x2="15" y2="15"></line>
-                  </svg>
-                {acts.find(act => act.title === "Aerial")?.techRider}
-                </p>
           </div>
           </motion.div>
         </motion.div>
@@ -767,6 +744,42 @@ export default function Acts() {
               >
                 <source src="/Cyr-Wheel_Trailer.mp4" type="video/mp4" />
               </video>
+              
+              {/* Hero Video Arrow Button */}
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsCyrWheelModalOpen(false);
+                  setTimeout(() => setIsHeroVideoModalOpen(true), 300);
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-accent hover:bg-accent/90 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50"
+                aria-label={t.acts.cyrWheel.watchHeroVideo}
+                style={{
+                  boxShadow: '0 10px 25px rgba(176, 138, 91, 0.4), 0 0 0 4px rgba(255, 255, 255, 0.1)'
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="animate-pulse"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+                <span className="absolute -right-2 top-full mt-2 whitespace-nowrap bg-earth-900 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
+                  {t.acts.cyrWheel.watchHeroVideo}
+                </span>
+              </motion.button>
             </div>
 
             {/* Content */}
@@ -794,7 +807,7 @@ export default function Acts() {
 
               {/* Description */}
               <p className="text-base leading-relaxed mb-6 text-earth-700/85">
-                {acts.find(act => act.title === "Cyr Wheel")?.description}
+                {acts.find(act => act.title === t.acts.cyrWheel.title)?.description}
               </p>
 
               {/* Key Facts */}
@@ -803,7 +816,7 @@ export default function Acts() {
                   Key Facts
                 </h4>
                 <dl className="space-y-2">
-                  {acts.find(act => act.title === "Cyr Wheel")?.keyfacts.map((fact) => (
+                  {acts.find(act => act.title === t.acts.cyrWheel.title)?.keyfacts.map((fact) => (
                     <div
                       key={fact.label}
                       className="flex justify-between items-baseline text-sm border-b border-earth-200/50 pb-1"
@@ -814,26 +827,133 @@ export default function Acts() {
                   ))}
                 </dl>
               </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
 
-              {/* Tech Rider */}
-              <p className="text-xs mt-4 flex items-center gap-2 text-accent">
+    {/* Hero Video Modal */}
+    <AnimatePresence>
+      {isHeroVideoModalOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 z-[5000] flex items-start justify-center pt-20 md:pt-24 pb-4 px-0 md:px-4 bg-earth-900/95 backdrop-blur-sm overflow-y-auto"
+          onClick={() => setIsHeroVideoModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="hero-video-modal-title"
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative max-w-6xl w-full md:rounded-lg bg-white overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsHeroVideoModalOpen(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full text-earth-700 hover:bg-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              aria-label="Modal schließen"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+
+            {/* Video */}
+            <div className="relative w-full aspect-video md:aspect-video bg-earth-900" style={{ minHeight: '50vh' }}>
+              <iframe
+                src="https://www.youtube.com/embed/QTJ6lkGcF7g?autoplay=1&mute=0&loop=1&playlist=QTJ6lkGcF7g&controls=1&showinfo=0&rel=0&modestbranding=1&playsinline=1&start=5"
+                title="Karlo Performance Trailer"
+                allow="autoplay; encrypted-media; fullscreen"
+                className="absolute inset-0 w-full h-full"
+                style={{
+                  border: 'none'
+                }}
+              />
+              
+              {/* Back to Cyr Wheel Video Arrow Button */}
+              <motion.button
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsHeroVideoModalOpen(false);
+                  setTimeout(() => setIsCyrWheelModalOpen(true), 300);
+                }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-accent hover:bg-accent/90 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50"
+                aria-label="Zurück zum Cyr Wheel Video"
+                style={{
+                  boxShadow: '0 10px 25px rgba(176, 138, 91, 0.4), 0 0 0 4px rgba(255, 255, 255, 0.1)'
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
+                  width="32"
+                  height="32"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="animate-pulse"
                 >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="12" y1="18" x2="12" y2="12"></line>
-                  <line x1="9" y1="15" x2="15" y2="15"></line>
+                  <path d="M19 12H5"></path>
+                  <path d="m12 19-7-7 7-7"></path>
                 </svg>
-                {acts.find(act => act.title === "Cyr Wheel")?.techRider}
+                <span className="absolute -left-2 top-full mt-2 whitespace-nowrap bg-earth-900 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
+                  {language === "de" ? "Cyr Wheel Video" : "Cyr Wheel Video"}
+                </span>
+              </motion.button>
+            </div>
+
+            {/* Content */}
+            <div className="p-4 md:p-6 lg:p-8">
+              <h3 id="hero-video-modal-title" className="text-2xl md:text-3xl font-serif text-earth-700 mb-4 mt-0 flex items-center gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-accent"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="6"></circle>
+                  <line x1="12" y1="2" x2="12" y2="22"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                {t.acts.cyrWheel.title} - {language === "de" ? "Hero-Video" : "Hero Video"}
+              </h3>
+
+              {/* Description */}
+              <p className="text-base leading-relaxed mb-6 text-earth-700/85">
+                {language === "de" 
+                  ? "Dieses Video zeigt eine umfassende Performance mit dem Cyr Wheel und gibt einen Einblick in die Vielseitigkeit und Präzision der Artistik."
+                  : "This video showcases a comprehensive performance with the Cyr Wheel and provides insight into the versatility and precision of the artistry."}
               </p>
             </div>
           </motion.div>

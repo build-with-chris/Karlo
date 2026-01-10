@@ -10,10 +10,17 @@ import "swiper/css/navigation";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import { portfolioItems } from "@/data/portfolio";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Gallery21 = () => {
+  const { t } = useLanguage();
   const [domLoaded, setDomLoaded] = useState(false);
-  const [shuffledImages, setShuffledImages] = useState<Array<{ src: string; alt: string }>>([]);
+  const [shuffledImages, setShuffledImages] = useState<Array<{ 
+    src: string; 
+    alt: string;
+    photographer?: string;
+    photographerInstagram?: string;
+  }>>([]);
 
   // Shuffle function (Fisher-Yates algorithm)
   const shuffleArray = <T,>(array: T[]): T[] => {
@@ -31,6 +38,8 @@ const Gallery21 = () => {
     const images = portfolioItems.map(item => ({
       src: item.thumb,
       alt: item.alt,
+      photographer: item.photographer,
+      photographerInstagram: item.photographerInstagram,
     }));
     setShuffledImages(shuffleArray(images));
   }, []);
@@ -84,7 +93,7 @@ const Gallery21 = () => {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-serif text-earth-700 mb-3 md:mb-4"
           >
-            Eindrücke aus meinen Shows
+            {t.portfolio.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -154,12 +163,35 @@ const Gallery21 = () => {
               >
                 {shuffledImages.map((image, index) => (
                   <SwiperSlide key={`${image.src}-${index}`}>
-                    <img
-                      className="h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg"
-                      src={image.src}
-                      alt={image.alt || `Karlo Janke Performance Moment ${index + 1}`}
-                      loading="lazy"
-                    />
+                    <div className="relative h-full w-full group">
+                      <img
+                        className="h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg"
+                        src={image.src}
+                        alt={image.alt || `Karlo Janke Performance Moment ${index + 1}`}
+                        loading="lazy"
+                      />
+                      {image.photographer && (
+                        <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-md rounded-md px-2 py-1 text-white/90 text-[10px] md:text-xs font-normal opacity-70 group-hover:opacity-100 transition-opacity duration-200">
+                          {image.photographerInstagram ? (
+                            <a
+                              href={`https://www.instagram.com/${image.photographerInstagram.replace('@', '')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:text-accent transition-colors no-underline flex items-center gap-1"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <span className="text-[8px] md:text-[10px]">📷</span>
+                              <span>{image.photographerInstagram}</span>
+                            </a>
+                          ) : (
+                            <span className="flex items-center gap-1">
+                              <span className="text-[8px] md:text-[10px]">📷</span>
+                              <span>{image.photographer}</span>
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </SwiperSlide>
                 ))}
               </Swiper>

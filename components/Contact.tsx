@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, FormEvent } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Contact() {
+  const { t, language } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -38,29 +40,29 @@ export default function Contact() {
     let isValid = true;
 
     if (!formData.name.trim()) {
-      newErrors.name = "Bitte geben Sie Ihren Namen ein.";
+      newErrors.name = t.contact.nameRequired;
       isValid = false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      newErrors.email = "Bitte geben Sie Ihre E-Mail-Adresse ein.";
+      newErrors.email = t.contact.emailRequired;
       isValid = false;
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+      newErrors.email = t.contact.emailInvalid;
       isValid = false;
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "Bitte geben Sie eine Nachricht ein.";
+      newErrors.message = t.contact.messageRequired;
       isValid = false;
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Ihre Nachricht sollte mindestens 10 Zeichen lang sein.";
+      newErrors.message = t.contact.messageMinLength;
       isValid = false;
     }
 
     if (!formData.consent) {
-      newErrors.consent = "Bitte bestätigen Sie die Datenschutzeinwilligung.";
+      newErrors.consent = t.contact.consentRequired;
       isValid = false;
     }
 
@@ -94,7 +96,7 @@ export default function Contact() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Fehler beim Senden der Nachricht");
+        throw new Error(data.error || t.contact.error);
       }
 
       setIsSubmitted(true);
@@ -109,7 +111,7 @@ export default function Contact() {
       setSubmitError(
         error instanceof Error
           ? error.message
-          : "Fehler beim Senden der Nachricht. Bitte versuchen Sie es später erneut."
+          : t.contact.error
       );
     } finally {
       setIsLoading(false);
@@ -125,7 +127,7 @@ export default function Contact() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-center mb-8 lg:mb-10">Kontakt</h2>
+          <h2 className="text-center mb-8 lg:mb-10">{t.contact.title}</h2>
 
           <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
             {/* Contact Form */}
@@ -141,7 +143,7 @@ export default function Contact() {
                     htmlFor="name"
                     className="block text-sm font-medium text-earth-700 mb-2"
                   >
-                    Name <span className="text-accent">*</span>
+                    {t.contact.name} <span className="text-accent">*</span>
                   </label>
                   <input
                     type="text"
@@ -154,7 +156,7 @@ export default function Contact() {
                         ? "border-red-400 focus:ring-red-300"
                         : "border-earth-300 focus:ring-accent/30"
                     }`}
-                    placeholder="Ihr Name"
+                    placeholder={t.contact.namePlaceholder}
                     aria-invalid={errors.name ? "true" : "false"}
                     aria-describedby={errors.name ? "name-error" : undefined}
                   />
@@ -170,7 +172,7 @@ export default function Contact() {
                     htmlFor="email"
                     className="block text-sm font-medium text-earth-700 mb-2"
                   >
-                    E-Mail <span className="text-accent">*</span>
+                    {t.contact.email} <span className="text-accent">*</span>
                   </label>
                   <input
                     type="email"
@@ -183,7 +185,7 @@ export default function Contact() {
                         ? "border-red-400 focus:ring-red-300"
                         : "border-earth-300 focus:ring-accent/30"
                     }`}
-                    placeholder="ihre@email.de"
+                    placeholder={t.contact.emailPlaceholder}
                     aria-invalid={errors.email ? "true" : "false"}
                     aria-describedby={errors.email ? "email-error" : undefined}
                   />
@@ -199,7 +201,7 @@ export default function Contact() {
                     htmlFor="message"
                     className="block text-sm font-medium text-earth-700 mb-2"
                   >
-                    Nachricht <span className="text-accent">*</span>
+                    {t.contact.message} <span className="text-accent">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -212,7 +214,7 @@ export default function Contact() {
                         ? "border-red-400 focus:ring-red-300"
                         : "border-earth-300 focus:ring-accent/30"
                     }`}
-                    placeholder="Erzählen Sie mir von Ihrem Event..."
+                    placeholder={t.contact.messagePlaceholder}
                     aria-invalid={errors.message ? "true" : "false"}
                     aria-describedby={errors.message ? "message-error" : undefined}
                   />
@@ -237,12 +239,23 @@ export default function Contact() {
                       aria-describedby={errors.consent ? "consent-error" : undefined}
                     />
                     <label htmlFor="consent" className="text-sm text-earth-700/90 leading-relaxed">
-                      Ich habe die{" "}
-                      <a href="/datenschutz" className="text-accent hover:underline">
-                        Datenschutzerklärung
-                      </a>{" "}
-                      zur Kenntnis genommen. Ich stimme zu, dass meine Angaben zur Kontaktaufnahme
-                      und für Rückfragen dauerhaft gespeichert werden. <span className="text-accent">*</span>
+                      {language === "de" ? (
+                        <>
+                          {t.contact.consent.split("Datenschutzerklärung")[0]}
+                          <a href="/datenschutz" className="text-accent hover:underline">
+                            Datenschutzerklärung
+                          </a>
+                          {" " + t.contact.consent.split("Datenschutzerklärung")[1]}
+                        </>
+                      ) : (
+                        <>
+                          {t.contact.consent.split("privacy policy")[0]}
+                          <a href="/datenschutz" className="text-accent hover:underline">
+                            Privacy Policy
+                          </a>
+                          {t.contact.consent.split("privacy policy")[1] || ""}
+                        </>
+                      )} <span className="text-accent">*</span>
                     </label>
                   </div>
                   {errors.consent && (
@@ -252,8 +265,7 @@ export default function Contact() {
                   )}
 
                   <p className="text-xs text-earth-700/70 leading-relaxed">
-                    <strong>Hinweis:</strong> Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail
-                    an info@karlojanke.com widerrufen.
+                    {t.contact.consentNote}
                   </p>
                 </div>
 
@@ -271,10 +283,10 @@ export default function Contact() {
                   disabled={isSubmitted || isLoading}
                 >
                   {isLoading
-                    ? "Wird gesendet..."
+                    ? t.contact.submitting
                     : isSubmitted
-                    ? "✓ Nachricht gesendet"
-                    : "Nachricht senden"}
+                    ? t.contact.submitted
+                    : t.contact.submit}
                 </button>
               </form>
             </motion.div>
@@ -306,7 +318,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-2">
-                    E-Mail
+                    {t.contact.emailLabel}
                   </h3>
                   <a
                     href="mailto:info@karlojanke.com"
@@ -337,7 +349,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-2">
-                    Telefon
+                    {t.contact.phoneLabel}
                   </h3>
                   <a
                     href="tel:+4915789115708"
@@ -368,7 +380,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
-                    Social Media
+                    {t.contact.socialMedia}
                   </h3>
                   <div className="flex gap-3">
                     <a
@@ -443,11 +455,10 @@ export default function Contact() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-sm font-semibold uppercase tracking-wider text-accent mt-0 mb-2">
-                      Direktbuchung
+                      {t.acts.booking.title}
                     </h3>
                     <p className="text-sm text-earth-700/85 leading-relaxed mb-3">
-                      Fertige Acts von Karlo können Sie direkt über PepeShows buchen. 
-                      Professionelle Kommunikation und einfache Abwicklung inklusive.
+                      {t.acts.booking.description}
                     </p>
                     <a
                       href="https://pepeshows.de"
@@ -455,7 +466,7 @@ export default function Contact() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-earth-700 transition-colors"
                     >
-                      Zu PepeShows
+                      {t.acts.booking.link}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -487,12 +498,10 @@ export default function Contact() {
                 }}
               >
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
-                  Für Agenturen
+                  {t.contact.forAgencies.title}
                 </h3>
                 <p className="text-sm text-earth-700/80 leading-relaxed mb-0">
-                  Sie planen ein Event und suchen außergewöhnliche Artistik? Ich arbeite gerne
-                  mit professionellen Agenturen zusammen. Kontaktieren Sie mich für Details zu
-                  Verfügbarkeit und Konditionen.
+                  {t.contact.forAgencies.description}
                 </p>
               </div>
             </motion.div>

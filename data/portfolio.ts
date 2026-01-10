@@ -6,6 +6,8 @@ export interface PortfolioItem {
   thumb: string;
   alt: string;
   category: "Cyr Wheel" | "Aerial Straps" | "Aerial";
+  photographer?: string;
+  photographerInstagram?: string;
 }
 
 export const portfolioItems: PortfolioItem[] = [
@@ -17,6 +19,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Cyr1.webp",
     alt: "Karlo Janke performing with Cyr Wheel",
     category: "Cyr Wheel",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 2,
@@ -26,6 +29,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Straps.webp",
     alt: "Karlo Janke performing Aerial Straps routine",
     category: "Aerial Straps",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 3,
@@ -35,6 +39,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Cyr2.webp",
     alt: "Karlo Janke Cyr Wheel performance",
     category: "Cyr Wheel",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 4,
@@ -44,6 +49,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/101-P2677003.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 5,
@@ -53,6 +60,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/57-P2666725.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 6,
@@ -62,6 +71,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/58-P2666729.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 7,
@@ -71,6 +82,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/61-P2666752.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 8,
@@ -80,6 +93,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/72-P2666798.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 9,
@@ -89,6 +104,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/73-P2666801.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 10,
@@ -98,6 +115,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/76-P2666813.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 11,
@@ -107,6 +126,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/79-P2666828.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 12,
@@ -116,6 +137,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302212.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 13,
@@ -125,6 +147,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302238.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 14,
@@ -134,6 +157,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302288.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 15,
@@ -143,6 +167,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302340.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 16,
@@ -152,6 +177,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302374.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
+    photographer: "Werner Hassepaß",
   },
   {
     id: 17,
@@ -161,6 +187,8 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/85-P2666894.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
   {
     id: 18,
@@ -170,5 +198,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/92-P2666929.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
+    photographer: "Stéphane Le Breton",
+    photographerInstagram: "@slb_fotografie",
   },
 ];
