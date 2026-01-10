@@ -141,7 +141,7 @@ export default function Navigation() {
                   <li key={id} className="flex items-center h-full">
                     <button
                       onClick={() => scrollToSection(id)}
-                      className={`relative text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-3 h-full flex items-center ${
+                      className={`group relative text-lg font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-3 h-full flex items-center justify-center ${
                         isScrolled
                           ? activeSection === id
                             ? "text-accent"
@@ -153,16 +153,29 @@ export default function Navigation() {
                       aria-current={activeSection === id ? "page" : undefined}
                       type="button"
                     >
-                      {label}
-                      {activeSection === id && (
-                        <motion.span
-                          layoutId="activeSection"
-                          className={`absolute bottom-0 left-0 right-0 h-0.5 ${
-                            isScrolled ? "bg-accent" : "bg-white"
+                      <span className="relative inline-block text-center">
+                        {label}
+                        {/* Active section underline - direkt unter dem Text ohne Abstand */}
+                        {activeSection === id && (
+                          <motion.span
+                            layoutId="activeSection"
+                            className={`absolute left-0 right-0 bottom-0 h-0.5 ${
+                              isScrolled ? "bg-accent" : "bg-white"
+                            }`}
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                        {/* Hover underline - direkt unter dem Text ohne Abstand */}
+                        <span
+                          className={`absolute left-0 right-0 bottom-0 h-0.5 origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-200 ${
+                            activeSection === id
+                              ? "hidden"
+                              : isScrolled
+                              ? "bg-accent"
+                              : "bg-white"
                           }`}
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
                         />
-                      )}
+                      </span>
                     </button>
                   </li>
                 ))}

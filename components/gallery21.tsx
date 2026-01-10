@@ -22,26 +22,51 @@ const Gallery21 = () => {
     photographerInstagram?: string;
   }>>([]);
 
-  // Shuffle function (Fisher-Yates algorithm)
-  const shuffleArray = <T,>(array: T[]): T[] => {
+  // Shuffle function that ensures no two images from the same photographer are adjacent
+  const shuffleWithPhotographerSeparation = <T extends { photographer?: string }>(array: T[]): T[] => {
     const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    const maxAttempts = 100;
+    let attempts = 0;
+
+    while (attempts < maxAttempts) {
+      // Fisher-Yates shuffle
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      // Check if no two images from the same photographer are adjacent
+      let isValid = true;
+      for (let i = 0; i < shuffled.length - 1; i++) {
+        const current = shuffled[i].photographer;
+        const next = shuffled[i + 1].photographer;
+        if (current && next && current === next) {
+          isValid = false;
+          break;
+        }
+      }
+
+      if (isValid) {
+        return shuffled;
+      }
+
+      attempts++;
     }
+
+    // If we couldn't find a perfect arrangement, return the shuffled array anyway
     return shuffled;
   };
 
   useEffect(() => {
     setDomLoaded(true);
-    // Shuffle images on mount
+    // Shuffle images on mount with photographer separation
     const images = portfolioItems.map(item => ({
       src: item.thumb,
       alt: item.alt,
       photographer: item.photographer,
       photographerInstagram: item.photographerInstagram,
     }));
-    setShuffledImages(shuffleArray(images));
+    setShuffledImages(shuffleWithPhotographerSeparation(images));
   }, []);
 
   const css = `

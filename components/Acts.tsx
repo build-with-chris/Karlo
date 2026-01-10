@@ -658,24 +658,6 @@ export default function Acts() {
               <p className="text-base leading-relaxed mb-6 text-earth-700/85">
                 {acts.find(act => act.title === t.acts.aerial.title)?.description}
                 </p>
-
-                {/* Key Facts */}
-              <div className="space-y-3 mb-6">
-                <h4 className="text-xs font-semibold uppercase tracking-widest mb-3 text-earth-500">
-                    {t.acts.aerial.keyFacts}
-                  </h4>
-                  <dl className="space-y-2">
-                  {acts.find(act => act.title === t.acts.aerial.title)?.keyfacts.map((fact) => (
-                      <div
-                        key={fact.label}
-                        className="flex justify-between items-baseline text-sm border-b border-earth-200/50 pb-1"
-                      >
-                        <dt className="text-earth-700/70">{fact.label}</dt>
-                        <dd className="font-medium text-earth-700">{fact.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
           </div>
           </motion.div>
         </motion.div>
@@ -809,24 +791,6 @@ export default function Acts() {
               <p className="text-base leading-relaxed mb-6 text-earth-700/85">
                 {acts.find(act => act.title === t.acts.cyrWheel.title)?.description}
               </p>
-
-              {/* Key Facts */}
-              <div className="space-y-3 mb-6">
-                <h4 className="text-xs font-semibold uppercase tracking-widest mb-3 text-earth-500">
-                  Key Facts
-                </h4>
-                <dl className="space-y-2">
-                  {acts.find(act => act.title === t.acts.cyrWheel.title)?.keyfacts.map((fact) => (
-                    <div
-                      key={fact.label}
-                      className="flex justify-between items-baseline text-sm border-b border-earth-200/50 pb-1"
-                    >
-                      <dt className="text-earth-700/70">{fact.label}</dt>
-                      <dd className="font-medium text-earth-700">{fact.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
             </div>
           </motion.div>
         </motion.div>
@@ -946,7 +910,7 @@ export default function Acts() {
                   <line x1="12" y1="2" x2="12" y2="22"></line>
                   <line x1="2" y1="12" x2="22" y2="12"></line>
                 </svg>
-                {t.acts.cyrWheel.title} - {language === "de" ? "Hero-Video" : "Hero Video"}
+                {t.acts.cyrWheel.title} - Trailer 2
               </h3>
 
               {/* Description */}
