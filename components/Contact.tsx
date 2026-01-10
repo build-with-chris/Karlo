@@ -24,6 +24,8 @@ export default function Contact() {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const validateForm = () => {
     const newErrors = {
@@ -66,19 +68,51 @@ export default function Contact() {
     return isValid;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitError("");
 
-    if (validateForm()) {
-      // Placeholder action - in real implementation, send to backend
-      console.log("Form submitted:", formData);
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Fehler beim Senden der Nachricht");
+      }
+
       setIsSubmitted(true);
+      setFormData({ name: "", email: "", message: "", consent: false });
 
-      // Reset form after 3 seconds
+      // Reset success message after 5 seconds
       setTimeout(() => {
-        setFormData({ name: "", email: "", message: "", consent: false });
         setIsSubmitted(false);
-      }, 3000);
+      }, 5000);
+    } catch (error) {
+      console.error("Fehler beim Senden:", error);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Fehler beim Senden der Nachricht. Bitte versuchen Sie es später erneut."
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -219,17 +253,28 @@ export default function Contact() {
 
                   <p className="text-xs text-earth-700/70 leading-relaxed">
                     <strong>Hinweis:</strong> Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail
-                    an karlo.janke@hotmail.de widerrufen.
+                    an info@karlojanke.com widerrufen.
                   </p>
                 </div>
+
+                {/* Error Message */}
+                {submitError && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p className="text-red-700 text-sm">{submitError}</p>
+                  </div>
+                )}
 
                 {/* Submit Button */}
                 <button
                   type="submit"
                   className="btn btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isSubmitted}
+                  disabled={isSubmitted || isLoading}
                 >
-                  {isSubmitted ? "✓ Nachricht gesendet" : "Nachricht senden"}
+                  {isLoading
+                    ? "Wird gesendet..."
+                    : isSubmitted
+                    ? "✓ Nachricht gesendet"
+                    : "Nachricht senden"}
                 </button>
               </form>
             </motion.div>
@@ -264,10 +309,10 @@ export default function Contact() {
                     E-Mail
                   </h3>
                   <a
-                    href="mailto:karlo.janke@hotmail.de"
+                    href="mailto:info@karlojanke.com"
                     className="text-earth-700 hover:text-accent no-underline text-base"
                   >
-                    karlo.janke@hotmail.de
+                    info@karlojanke.com
                   </a>
                 </div>
               </div>

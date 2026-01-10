@@ -115,10 +115,10 @@ export default function Footer() {
               </div>
               <p className="text-earth-300 text-base">
                 <a
-                  href="mailto:karlo.janke@hotmail.de"
+                  href="mailto:info@karlojanke.com"
                   className="hover:text-accent transition-colors no-underline"
                 >
-                  karlo.janke@hotmail.de
+                  info@karlojanke.com
                 </a>
               </p>
               <p className="text-earth-300 text-base mt-2">

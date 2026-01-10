@@ -12,12 +12,12 @@ export default function Home() {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Karlo Janke",
-    givenName: "Karlo",
+    name: "Karl-Antonio Janke",
+    givenName: "Karl-Antonio",
     familyName: "Janke",
     jobTitle: "Cyr Wheel & Aerial Artist",
     description: "Professioneller Zirkusartist spezialisiert auf Cyr Wheel und Aerial Straps. Ausgebildet an der Schule für zeitgenössischen Zirkus 'Die Etage' in Berlin. Performances für Events, Festivals und Theater.",
-    email: "karlo.janke@hotmail.de",
+    email: "info@karlojanke.com",
     telephone: "+4915789115708",
     url: "https://karlojanke.com",
     sameAs: [
@@ -50,7 +50,7 @@ export default function Home() {
     },
     hasOccupation: {
       "@type": "Occupation",
-      name: "Zirkusartist",
+      name: "Freischaffender Künstler",
       occupationLocation: {
         "@type": "Country",
         name: "Deutschland"
