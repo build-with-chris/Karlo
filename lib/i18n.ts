@@ -70,6 +70,7 @@ export const translations = {
     },
     portfolio: {
       title: "Eindrücke",
+      subtitle: "Ausgewählte Momente",
       viewImage: "Bild ansehen",
       close: "Schließen",
     },
@@ -179,6 +180,7 @@ export const translations = {
     },
     portfolio: {
       title: "Portfolio",
+      subtitle: "Selected Moments",
       viewImage: "View Image",
       close: "Close",
     },

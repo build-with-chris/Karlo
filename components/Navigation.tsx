@@ -281,9 +281,9 @@ export default function Navigation() {
               {/* Navigation Items - Centered vertically */}
               <nav
                 aria-label="Mobile Navigation"
-                className="flex-1 flex flex-col items-center justify-center px-8 py-12"
+                className="flex-1 flex flex-col items-center justify-center px-8 py-10"
               >
-                <ul className="w-full space-y-5 mb-8">
+                <ul className="w-full space-y-4 mb-6">
                   {navItems.map(({ id, label }, index) => (
                     <motion.li
                       key={id}
@@ -291,20 +291,20 @@ export default function Navigation() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{
-                        delay: index * 0.05,
+                        delay: index * 0.04,
                         duration: 0.3,
                         ease: "easeOut"
                       }}
                     >
                       <button
                         onClick={() => scrollToSection(id)}
-                        className={`w-full text-center px-8 py-6 rounded-3xl text-xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent active:scale-[0.97] ${
+                        className={`w-full text-center px-8 py-4 rounded-3xl text-xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent active:scale-[0.98] ${
                           activeSection === id
                             ? "bg-accent text-white shadow-lg shadow-accent/20"
                             : "bg-earth-800/80 text-earth-50 hover:bg-earth-700/80 active:bg-earth-700"
                         }`}
                         style={{
-                          minHeight: '72px',
+                          minHeight: '58px',
                           touchAction: 'manipulation'
                         }}
                         aria-current={activeSection === id ? "page" : undefined}
@@ -321,12 +321,12 @@ export default function Navigation() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  transition={{ delay: navItems.length * 0.05 + 0.1, duration: 0.3 }}
+                  transition={{ delay: navItems.length * 0.04 + 0.1, duration: 0.3 }}
                   className="flex items-center gap-1 rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm p-1"
                 >
                   <button
                     onClick={() => setLanguage("de")}
-                    className={`px-4 py-2 text-sm font-medium rounded transition-all ${
+                    className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
                       language === "de"
                         ? "bg-accent text-white"
                         : "text-white/70 hover:text-white"
@@ -338,7 +338,7 @@ export default function Navigation() {
                   </button>
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`px-4 py-2 text-sm font-medium rounded transition-all ${
+                    className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
                       language === "en"
                         ? "bg-accent text-white"
                         : "text-white/70 hover:text-white"

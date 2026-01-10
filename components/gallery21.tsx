@@ -101,7 +101,7 @@ const Gallery21 = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-base md:text-lg text-earth-700/80"
           >
-            Ausgewählte Momente
+            {t.portfolio.subtitle}
           </motion.p>
         </div>
       </div>
