@@ -135,7 +135,7 @@ export default function Navigation() {
             </motion.button>
 
             {/* Desktop Navigation - Centered horizontally, vertically aligned */}
-            <nav aria-label="Hauptnavigation" className="hidden md:flex items-center justify-center flex-1 h-full">
+            <nav aria-label="Hauptnavigation" className="hidden lg:flex items-center justify-center flex-1 h-full">
               <ul className="flex items-center gap-8 h-full">
                 {navItems.map(({ id, label }) => (
                   <li key={id} className="flex items-center h-full">
@@ -183,7 +183,7 @@ export default function Navigation() {
             </nav>
 
             {/* Language Toggler - Right */}
-            <div className="hidden md:flex items-center flex-shrink-0">
+            <div className="hidden lg:flex items-center flex-shrink-0">
               <div className={`flex items-center gap-1 rounded-lg border p-1 ${
                 isScrolled
                   ? "border-earth-300 bg-earth-50/50"
@@ -227,7 +227,7 @@ export default function Navigation() {
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={toggleMobileMenu}
-              className={`md:hidden flex items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              className={`lg:hidden flex items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                 isScrolled
                   ? "text-earth-700 hover:text-accent"
                   : "text-white hover:text-white/80"
@@ -277,7 +277,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[9998] md:hidden"
+            className="fixed inset-0 z-[9998] lg:hidden"
             onClick={closeMobileMenu}
           >
             {/* Backdrop */}

@@ -75,7 +75,7 @@ export const translations = {
       close: "Schließen",
     },
     contact: {
-      title: "Kontakt",
+      title: "Kontakt & Buchungen",
       name: "Name",
       namePlaceholder: "Ihr Name",
       nameRequired: "Bitte geben Sie Ihren Namen ein.",
@@ -185,7 +185,7 @@ export const translations = {
       close: "Close",
     },
     contact: {
-      title: "Contact",
+      title: "Contact & Booking",
       name: "Name",
       namePlaceholder: "Your Name",
       nameRequired: "Please enter your name.",

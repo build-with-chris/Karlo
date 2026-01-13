@@ -12,16 +12,6 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
-    id: 1,
-    title: "Cyr Wheel Performance",
-    location: "Deutschland",
-    year: "2024",
-    thumb: "/Cyr1.webp",
-    alt: "Karlo Janke performing with Cyr Wheel",
-    category: "Cyr Wheel",
-    photographer: "Werner Hassepaß",
-  },
-  {
     id: 2,
     title: "Aerial Straps",
     location: "Deutschland",
@@ -29,17 +19,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Straps.webp",
     alt: "Karlo Janke performing Aerial Straps routine",
     category: "Aerial Straps",
-    photographer: "Werner Hassepaß",
-  },
-  {
-    id: 3,
-    title: "Cyr Wheel Artistik",
-    location: "Deutschland",
-    year: "2024",
-    thumb: "/Cyr2.webp",
-    alt: "Karlo Janke Cyr Wheel performance",
-    category: "Cyr Wheel",
-    photographer: "Werner Hassepaß",
   },
   {
     id: 4,
@@ -137,7 +116,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302212.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    photographer: "Werner Hassepaß",
+    photographer: "Markus Vicari",
   },
   {
     id: 13,
@@ -147,7 +126,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302238.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    photographer: "Werner Hassepaß",
+    photographer: "Markus Vicari",
   },
   {
     id: 14,
@@ -157,7 +136,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302288.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    photographer: "Werner Hassepaß",
+    photographer: "Markus Vicari",
   },
   {
     id: 15,
@@ -167,7 +146,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302340.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    photographer: "Werner Hassepaß",
+    photographer: "Markus Vicari",
   },
   {
     id: 16,
@@ -177,7 +156,7 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302374.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    photographer: "Werner Hassepaß",
+    photographer: "Markus Vicari",
   },
   {
     id: 17,
