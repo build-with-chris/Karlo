@@ -44,6 +44,7 @@ export const translations = {
         techRider: "Tech-Rider verfügbar",
         keyFacts: "Technische Details",
         watchHeroVideo: "Hero-Video ansehen",
+        clickForDetails: "Klicken für Details",
       },
       aerial: {
         title: "Aerial",
@@ -54,6 +55,7 @@ export const translations = {
         duration: "Dauer",
         techRider: "Tech-Rider verfügbar",
         keyFacts: "Technische Details",
+        clickForDetails: "Klicken für Details",
       },
       customActs: {
         title: "Individuelle Acts",
@@ -154,6 +156,7 @@ export const translations = {
         techRider: "Tech Rider available",
         keyFacts: "Key Facts",
         watchHeroVideo: "Watch Hero Video",
+        clickForDetails: "Click for Details",
       },
       aerial: {
         title: "Aerial",
@@ -164,6 +167,7 @@ export const translations = {
         duration: "Duration",
         techRider: "Tech Rider available",
         keyFacts: "Key Facts",
+        clickForDetails: "Click for Details",
       },
       customActs: {
         title: "Custom Acts",

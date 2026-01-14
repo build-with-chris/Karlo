@@ -16,6 +16,9 @@
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-serif: var(--font-libre-baskerville), Georgia, serif;
 
+  /* Custom Breakpoints */
+  --breakpoint-nav: 1200px;
+
   /* Spacing Scale */
   --spacing-xs: 0.5rem;    /* 8px */
   --spacing-sm: 1rem;      /* 16px */

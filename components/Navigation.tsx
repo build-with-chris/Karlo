@@ -7,12 +7,14 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const MOBILE_BUTTON_SIZE = 44; // Apple's recommended minimum touch target
 const NAV_HEIGHT = 80;
+const NAV_BREAKPOINT = 1280; // Breakpoint when "Über Karlo" wraps to 2 lines
 
 export default function Navigation() {
   const { language, setLanguage, t } = useLanguage();
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileNav, setIsMobileNav] = useState(false);
 
   const navItems = [
     { id: "hero", label: t.nav.start },
@@ -21,6 +23,17 @@ export default function Navigation() {
     { id: "portfolio", label: t.nav.portfolio },
     { id: "contact", label: t.nav.contact },
   ];
+
+  useEffect(() => {
+    // Check if screen width is below nav breakpoint
+    const checkNavBreakpoint = () => {
+      setIsMobileNav(window.innerWidth < NAV_BREAKPOINT);
+    };
+
+    checkNavBreakpoint();
+    window.addEventListener("resize", checkNavBreakpoint);
+    return () => window.removeEventListener("resize", checkNavBreakpoint);
+  }, []);
 
   useEffect(() => {
     // Scroll-Tracking für Hintergrund-Effekt
@@ -135,13 +148,13 @@ export default function Navigation() {
             </motion.button>
 
             {/* Desktop Navigation - Centered horizontally, vertically aligned */}
-            <nav aria-label="Hauptnavigation" className="hidden lg:flex items-center justify-center flex-1 h-full">
-              <ul className="flex items-center gap-8 h-full">
+            <nav aria-label="Hauptnavigation" className={`${isMobileNav ? 'hidden' : 'flex'} items-center justify-center flex-1`}>
+              <ul className="flex items-center gap-8">
                 {navItems.map(({ id, label }) => (
-                  <li key={id} className="flex items-center h-full">
+                  <li key={id} className="flex items-center">
                     <button
                       onClick={() => scrollToSection(id)}
-                      className={`group relative text-lg font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-3 h-full flex items-center justify-center ${
+                      className={`text-lg font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-3 pt-4 ${
                         isScrolled
                           ? activeSection === id
                             ? "text-accent"
@@ -153,29 +166,7 @@ export default function Navigation() {
                       aria-current={activeSection === id ? "page" : undefined}
                       type="button"
                     >
-                      <span className="relative inline-block text-center">
-                        {label}
-                        {/* Active section underline - direkt unter dem Text ohne Abstand */}
-                        {activeSection === id && (
-                          <motion.span
-                            layoutId="activeSection"
-                            className={`absolute left-0 right-0 bottom-0 h-0.5 ${
-                              isScrolled ? "bg-accent" : "bg-white"
-                            }`}
-                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                          />
-                        )}
-                        {/* Hover underline - direkt unter dem Text ohne Abstand */}
-                        <span
-                          className={`absolute left-0 right-0 bottom-0 h-0.5 origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-200 ${
-                            activeSection === id
-                              ? "hidden"
-                              : isScrolled
-                              ? "bg-accent"
-                              : "bg-white"
-                          }`}
-                        />
-                      </span>
+                      {label}
                     </button>
                   </li>
                 ))}
@@ -183,7 +174,7 @@ export default function Navigation() {
             </nav>
 
             {/* Language Toggler - Right */}
-            <div className="hidden lg:flex items-center flex-shrink-0">
+            <div className={`${isMobileNav ? 'hidden' : 'flex'} items-center flex-shrink-0`}>
               <div className={`flex items-center gap-1 rounded-lg border p-1 ${
                 isScrolled
                   ? "border-earth-300 bg-earth-50/50"
@@ -227,7 +218,7 @@ export default function Navigation() {
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={toggleMobileMenu}
-              className={`lg:hidden flex items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+              className={`${isMobileNav ? 'flex' : 'hidden'} items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                 isScrolled
                   ? "text-earth-700 hover:text-accent"
                   : "text-white hover:text-white/80"
@@ -277,7 +268,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[9998] lg:hidden"
+            className={`fixed inset-0 z-[9998] ${isMobileNav ? 'block' : 'hidden'}`}
             onClick={closeMobileMenu}
           >
             {/* Backdrop */}
