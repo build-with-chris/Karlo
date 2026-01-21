@@ -28,23 +28,19 @@ export default function Hero() {
         {isDesktop ? (
           // Desktop: Video Background
           <>
-            <div className="absolute inset-0 w-full h-full">
-              <iframe
-                src="https://www.youtube.com/embed/QTJ6lkGcF7g?autoplay=1&mute=1&loop=1&playlist=QTJ6lkGcF7g&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&start=5"
-                title="Karlo Performance Trailer"
-                allow="autoplay; encrypted-media"
+            <div className="absolute inset-0 w-full h-full overflow-hidden">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
                 style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  width: '100vw',
-                  height: '100vh',
-                  transform: 'translate(-50%, -50%)',
-                  pointerEvents: 'none',
-                  border: 'none',
-                  objectFit: 'cover'
+                  objectPosition: 'center center'
                 }}
-              />
+              >
+                <source src="/CyrHero.mp4" type="video/mp4" />
+              </video>
             </div>
             {/* Subtle gradient overlay - minimal for video focus on Desktop */}
             <div

@@ -75,6 +75,7 @@ export default function Acts() {
   const cyrWheelVideoRef = useRef<HTMLVideoElement>(null);
   const aerialModalVideoRef = useRef<HTMLVideoElement>(null);
   const cyrWheelModalVideoRef = useRef<HTMLVideoElement>(null);
+  const heroVideoModalVideoRef = useRef<HTMLVideoElement>(null);
   const aerialCardRef = useRef<HTMLDivElement>(null);
   const cyrWheelCardRef = useRef<HTMLDivElement>(null);
   const [shouldLoadAerialVideo, setShouldLoadAerialVideo] = useState(false);
@@ -843,15 +844,22 @@ export default function Acts() {
 
             {/* Video */}
             <div className="relative w-full aspect-video md:aspect-video bg-earth-900" style={{ minHeight: '50vh' }}>
-              <iframe
-                src="https://www.youtube.com/embed/QTJ6lkGcF7g?autoplay=1&mute=0&loop=1&playlist=QTJ6lkGcF7g&controls=1&showinfo=0&rel=0&modestbranding=1&playsinline=1&start=5"
-                title="Karlo Performance Trailer"
-                allow="autoplay; encrypted-media; fullscreen"
-                className="absolute inset-0 w-full h-full"
+              <video
+                ref={heroVideoModalVideoRef}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+                controls
+                title="Karlo Janke Cyr Wheel Performance Trailer 2"
+                aria-label="Cyr Wheel Performance Video Trailer 2 von Karlo Janke"
                 style={{
-                  border: 'none'
+                  objectFit: 'cover'
                 }}
-              />
+              >
+                <source src="/CyrHero.mp4" type="video/mp4" />
+              </video>
               
               {/* Back to Cyr Wheel Video Arrow Button */}
               <motion.button
