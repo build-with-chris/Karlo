@@ -30,10 +30,10 @@ const Gallery21 = () => {
 
     while (attempts < maxAttempts) {
       // Fisher-Yates shuffle
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
 
       // Check if no two images from the same photographer are adjacent
       let isValid = true;
@@ -189,12 +189,12 @@ const Gallery21 = () => {
                 {shuffledImages.map((image, index) => (
                   <SwiperSlide key={`${image.src}-${index}`}>
                     <div className="relative h-full w-full group">
-                      <img
-                        className="h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg"
-                        src={image.src}
-                        alt={image.alt || `Karlo Janke Performance Moment ${index + 1}`}
-                        loading="lazy"
-                      />
+                    <img
+                      className="h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg"
+                      src={image.src}
+                      alt={image.alt || `Karlo Janke Performance Moment ${index + 1}`}
+                      loading="lazy"
+                    />
                       {image.photographer && (
                         <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-md rounded-md px-2 py-1 text-white/90 text-[10px] md:text-xs font-normal opacity-70 group-hover:opacity-100 transition-opacity duration-200">
                           {image.photographerInstagram ? (

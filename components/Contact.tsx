@@ -242,8 +242,8 @@ export default function Contact() {
                       {language === "de" ? (
                         <>
                           {t.contact.consent.split("Datenschutzerklärung")[0]}
-                          <a href="/datenschutz" className="text-accent hover:underline">
-                            Datenschutzerklärung
+                      <a href="/datenschutz" className="text-accent hover:underline">
+                        Datenschutzerklärung
                           </a>
                           {" " + t.contact.consent.split("Datenschutzerklärung")[1]}
                         </>

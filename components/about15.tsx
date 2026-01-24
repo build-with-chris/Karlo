@@ -63,19 +63,19 @@ const About15 = () => {
                   {t.about.paragraph1}
                 </p>
                 {t.about.paragraph2 && (
-                  <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
+                <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
                     {t.about.paragraph2}
-                  </p>
+                </p>
                 )}
                 {t.about.paragraph3 && (
-                  <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
+                <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
                     {t.about.paragraph3}
-                  </p>
+                </p>
                 )}
                 {t.about.paragraph4 && (
-                  <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
+                <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
                     {t.about.paragraph4}
-                  </p>
+                </p>
                 )}
               </div>
             </motion.div>
