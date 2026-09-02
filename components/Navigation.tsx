@@ -9,7 +9,7 @@ const MOBILE_BUTTON_SIZE = 44; // Apple's recommended minimum touch target
 const NAV_HEIGHT = 80;
 const NAV_BREAKPOINT = 1280; // Breakpoint when "Über Karlo" wraps to 2 lines
 // Ausserhalb der Komponente, damit der Observer-Effekt eine stabile Abhaengigkeit hat
-const SECTION_IDS = ["hero", "about", "acts", "portfolio", "contact"] as const;
+const SECTION_IDS = ["hero", "portfolio", "acts", "about", "contact"] as const;
 
 export default function Navigation() {
   const { language, setLanguage, t } = useLanguage();
@@ -20,9 +20,9 @@ export default function Navigation() {
 
   const navLabels: Record<(typeof SECTION_IDS)[number], string> = {
     hero: t.nav.start,
-    about: t.nav.about,
-    acts: t.nav.acts,
     portfolio: t.nav.portfolio,
+    acts: t.nav.acts,
+    about: t.nav.about,
     contact: t.nav.contact,
   };
   const navItems = SECTION_IDS.map((id) => ({ id, label: navLabels[id] }));

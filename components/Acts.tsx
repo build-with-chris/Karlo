@@ -27,7 +27,7 @@ export default function Acts() {
     <>
       <section
         id="acts"
-        className="section bg-gradient-to-b from-white/20 to-earth-50/30 pb-8 md:pb-12 lg:pb-14"
+        className="section bg-earth-50 pb-8 md:pb-12 lg:pb-14"
       >
         <div className="container max-w-6xl">
           <motion.div
@@ -36,83 +36,82 @@ export default function Acts() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-6 mt-0 font-serif text-2xl font-medium tracking-tight text-earth-700 md:mb-8 md:text-3xl lg:mb-10 lg:text-4xl">
+            <h2 className="mt-0 mb-6 md:mb-8 lg:mb-10">
               {t.acts.introTitle}
             </h2>
 
-            {/* Reihe 1: Einleitungstext und Aerial. Auf Mobil kommt das Video zuerst. */}
-            <div className="mb-8 grid gap-8 md:grid-cols-2 lg:mb-10 lg:gap-12">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                className="order-3 flex items-start md:order-1"
-              >
-                <div className="w-full space-y-4">
-                  <p className="text-sm leading-relaxed text-earth-700/90 md:text-base lg:text-lg">
-                    {t.acts.introParagraph1}
-                  </p>
-                  <div className="border-t border-earth-200/60 pt-2">
-                    <p className="text-sm leading-relaxed text-earth-700/90 md:text-base lg:text-lg">
-                      {t.acts.introParagraph2}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+            {/* Einleitung ueber die volle Breite. Vorher stand sie in einer
+                Spalte neben einer 500 Pixel hohen Karte, was rund 285 Pixel
+                Leerraum je Reihe erzeugt hat. */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="mb-10 max-w-3xl space-y-4 lg:mb-12"
+            >
+              <p className="text-base leading-relaxed text-earth-700/90 lg:text-lg">
+                {t.acts.introParagraph1}
+              </p>
+              <p className="text-base leading-relaxed text-earth-700/90 lg:text-lg">
+                {t.acts.introParagraph2}
+              </p>
+            </motion.div>
 
+            {/* Beide Acts gleichwertig nebeneinander */}
+            <div className="mb-10 grid gap-8 md:grid-cols-2 lg:mb-12 lg:gap-10">
               <ActCard
                 title={t.acts.aerial.title}
                 icon={actIcons.aerial(32)}
                 video={acts[0].video}
                 poster={acts[0].poster}
                 videoTitle={acts[0].videoTitle}
-                hint={t.acts.aerial.clickForDetails}
+                startAt={acts[0].startAt}
+                hint={t.acts.aerial.watchVideo}
                 isInView={isInView}
-                offsetX={30}
+                offsetX={-30}
                 delay={0.2}
-                className="order-1 md:order-2"
                 onOpen={(time) => openClip("aerial", time)}
               />
-            </div>
 
-            {/* Reihe 2: Cyr Wheel und der Hinweis auf individuelle Acts */}
-            <div className="mb-8 grid gap-8 md:grid-cols-2 lg:mb-10 lg:gap-12">
               <ActCard
                 title={t.acts.cyrWheel.title}
                 icon={actIcons.cyrWheel(32)}
                 video={acts[1].video}
                 poster={acts[1].poster}
                 videoTitle={acts[1].videoTitle}
-                hint={t.acts.cyrWheel.clickForDetails}
+                startAt={acts[1].startAt}
+                hint={t.acts.cyrWheel.watchVideo}
                 isInView={isInView}
-                offsetX={-30}
+                offsetX={30}
                 delay={0.3}
-                className="order-4 md:order-1"
                 onOpen={(time) => openClip("cyrWheel", time)}
               />
+            </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="order-5 flex items-center md:order-2"
-              >
-                <div className="w-full rounded-lg border border-earth-200 bg-earth-100/50 px-6 py-8">
-                  <h3 className="mb-4 mt-0 font-serif text-xl leading-snug text-earth-700">
+            {/* Individuelle Acts, ueber die volle Breite */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="rounded-lg border border-earth-200 bg-earth-100/50 px-6 py-8 md:px-8"
+            >
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between md:gap-10">
+                <div className="max-w-2xl">
+                  <h3 className="mb-3 mt-0 font-serif text-xl leading-snug text-earth-700">
                     {t.acts.customActs.title}
                   </h3>
-                  <p className="mb-6 text-[0.9375rem] leading-relaxed text-earth-700/90">
+                  <p className="mb-0 text-[0.9375rem] leading-relaxed text-earth-700/90">
                     {t.acts.customActs.description}
                   </p>
-                  <a
-                    href="#contact"
-                    className="btn btn-outline inline-flex items-center justify-center no-underline"
-                  >
-                    {t.acts.customActs.contact}
-                  </a>
                 </div>
-              </motion.div>
-            </div>
+                <a
+                  href="#contact"
+                  className="btn btn-outline inline-flex flex-shrink-0 items-center justify-center no-underline"
+                >
+                  {t.acts.customActs.contact}
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>

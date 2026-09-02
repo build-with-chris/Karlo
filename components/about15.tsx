@@ -13,7 +13,7 @@ const About15 = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="section bg-gradient-to-b from-white/30 via-white/20 to-earth-50/50">
+    <section id="about" className="section bg-white">
       <div className="container max-w-6xl">
         <motion.div
           ref={ref}
@@ -22,43 +22,45 @@ const About15 = () => {
           transition={{ duration: 0.8 }}
         >
           <div className="flex flex-col items-center justify-center lg:flex-row lg:items-start lg:gap-12 xl:gap-16 gap-12 w-full">
-            {/* Image Card with Rotation */}
-            <motion.div
-              initial={{ opacity: 0, rotate: -10, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, rotate: -6, scale: 1 } : { opacity: 0, rotate: -10, scale: 0.9 }}
+            {/* Portraet, gerade gesetzt. Die Seite ist sonst ruhig gesetzt, ein
+                geneigter Rahmen mit Schlagschatten faellt daneben auseinander. */}
+            <motion.figure
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-[85%] md:w-[50%] lg:w-[34%] xl:w-[30%] flex-shrink-0 bg-earth-900 text-earth-50 rotate-[-6deg] border-2 border-earth-700 p-2 shadow-xl"
+              className="m-0 w-[85%] flex-shrink-0 md:w-[50%] lg:w-[34%] xl:w-[30%]"
             >
-              <div className="relative w-full h-[274px] md:h-[380px] lg:h-[313px] xl:h-[343px] overflow-hidden">
+              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm bg-earth-100">
                 <Image
                   src="/Portrait.webp"
-                  alt="Karlo Janke – Professioneller Cyr Wheel & Aerial Artist Portrait"
+                  alt="Karlo Janke, Cyr Wheel und Aerial Artist"
                   fill
-                  className="object-cover pointer-events-none"
-                  style={{ objectPosition: 'center center' }}
+                  className="pointer-events-none object-cover"
                   sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 35vw"
                 />
               </div>
 
-              <div className="pb-1.5 pt-2.5 px-2">
-                <p className="text-earth-50 text-base md:text-lg font-serif font-medium tracking-tight">
+              <figcaption className="pt-3">
+                <span className="block font-serif text-base font-medium tracking-tight text-earth-700 md:text-lg">
                   Karlo Janke
-                </p>
-                <p className="text-earth-50/70 text-xs md:text-sm">Cyr Wheel & Aerial Artist</p>
-              </div>
-            </motion.div>
+                </span>
+                <span className="block text-xs text-earth-700/70 md:text-sm">
+                  Cyr Wheel &amp; Aerial Artist
+                </span>
+              </figcaption>
+            </motion.figure>
 
             {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="w-full lg:w-[60%] xl:w-[65%] flex flex-col lg:h-[320px] xl:h-[350px]"
+              className="w-full lg:w-[60%] xl:w-[65%] flex flex-col"
             >
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium tracking-tight text-earth-700 mb-4 lg:mb-6">
+              <h2 className="mt-0 mb-4 lg:mb-6">
                 {t.about.title}
               </h2>
-              <div className="flex flex-col lg:justify-between lg:flex-1 space-y-3 lg:space-y-4">
+              <div className="flex flex-col space-y-3 lg:space-y-4">
                 <p className="text-sm md:text-base lg:text-lg leading-relaxed text-earth-700/90">
                   {t.about.paragraph1}
                 </p>
