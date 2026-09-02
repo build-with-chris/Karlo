@@ -15,6 +15,8 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    eventDate: "",
+    eventLocation: "",
     message: "",
     consent: false,
     // Honeypot: bleibt bei echten Besuchern leer, Bots fuellen es aus
@@ -92,6 +94,8 @@ export default function Contact() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          eventDate: formData.eventDate,
+          eventLocation: formData.eventLocation,
           message: formData.message,
           website: formData.website,
         }),
@@ -107,6 +111,8 @@ export default function Contact() {
       setFormData({
         name: "",
         email: "",
+        eventDate: "",
+        eventLocation: "",
         message: "",
         consent: false,
         website: "",
@@ -219,6 +225,50 @@ export default function Contact() {
                       {errors.email}
                     </p>
                   )}
+                </div>
+
+                {/* Optional, aber die beiden Angaben machen Karlos erste
+                    Antwort deutlich konkreter. */}
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label
+                      htmlFor="eventDate"
+                      className="block text-sm font-medium text-earth-700 mb-2"
+                    >
+                      {t.contact.eventDate}{" "}
+                      <span className="font-normal text-earth-700/60">
+                        ({t.contact.optional})
+                      </span>
+                    </label>
+                    <input
+                      type="date"
+                      id="eventDate"
+                      name="eventDate"
+                      value={formData.eventDate}
+                      onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+                      className="w-full px-4 py-3 border border-earth-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="eventLocation"
+                      className="block text-sm font-medium text-earth-700 mb-2"
+                    >
+                      {t.contact.eventLocation}{" "}
+                      <span className="font-normal text-earth-700/60">
+                        ({t.contact.optional})
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      id="eventLocation"
+                      name="eventLocation"
+                      value={formData.eventLocation}
+                      onChange={(e) => setFormData({ ...formData, eventLocation: e.target.value })}
+                      className="w-full px-4 py-3 border border-earth-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
+                      placeholder={t.contact.eventLocationPlaceholder}
+                    />
+                  </div>
                 </div>
 
                 <div>

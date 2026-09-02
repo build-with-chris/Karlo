@@ -52,7 +52,7 @@ function escapeHtml(value: string): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, message, website } = body;
+    const { name, email, message, website, eventDate, eventLocation } = body;
 
     // Honeypot: ein Feld, das nur Bots ausfuellen. Wir melden Erfolg, senden aber nichts.
     if (typeof website === "string" && website.trim() !== "") {
@@ -109,6 +109,13 @@ export async function POST(request: NextRequest) {
 
     const safeName = stripNewlines(name);
     const safeEmail = stripNewlines(email);
+    // Optional, deshalb nur uebernehmen wenn ausgefuellt und kurz genug
+    const safeDate =
+      typeof eventDate === "string" ? stripNewlines(eventDate).slice(0, 40) : "";
+    const safeLocation =
+      typeof eventLocation === "string"
+        ? stripNewlines(eventLocation).slice(0, 120)
+        : "";
     const siteName = process.env.SITE_NAME || "Karlo Website";
     const siteUrl = process.env.SITE_URL || "https://karlojanke.com";
 
@@ -133,6 +140,8 @@ export async function POST(request: NextRequest) {
         "",
         `Name: ${safeName}`,
         `E-Mail: ${safeEmail}`,
+        ...(safeDate ? [`Datum: ${safeDate}`] : []),
+        ...(safeLocation ? [`Ort: ${safeLocation}`] : []),
         "",
         "Nachricht:",
         message,
@@ -146,6 +155,8 @@ export async function POST(request: NextRequest) {
           <div style="background-color: #f5f5f0; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p><strong>Name:</strong> ${escapeHtml(safeName)}</p>
             <p><strong>E-Mail:</strong> <a href="mailto:${encodeURI(safeEmail)}">${escapeHtml(safeEmail)}</a></p>
+            ${safeDate ? `<p><strong>Datum:</strong> ${escapeHtml(safeDate)}</p>` : ""}
+            ${safeLocation ? `<p><strong>Ort:</strong> ${escapeHtml(safeLocation)}</p>` : ""}
           </div>
           <div style="background-color: #ffffff; padding: 20px; border-left: 4px solid #b08a5b; margin: 20px 0;">
             <h3 style="color: #2d241c; margin-top: 0;">Nachricht:</h3>
