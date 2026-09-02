@@ -114,28 +114,6 @@ const Gallery21 = () => {
   return (
     <div>
       <style>{css}</style>
-      <div className="container relative flex max-w-6xl flex-col items-center gap-8 lg:gap-10 overflow-x-clip px-4 md:px-4 py-4 md:py-6 lg:py-8">
-        {/* Header */}
-        <div className="text-center w-full mb-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-serif text-earth-700 mb-3 md:mb-4"
-          >
-            {t.portfolio.title}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base md:text-lg text-earth-700/80"
-          >
-            {t.portfolio.subtitle}
-          </motion.p>
-        </div>
-      </div>
-
       {/* Swiper section - full width on mobile */}
       <div className="relative w-full overflow-x-clip">
         {/* Left and right mask */}
@@ -210,7 +188,7 @@ const Gallery21 = () => {
                       />
                     </button>
                       {image.photographer && (
-                        <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-md rounded-md px-2 py-1 text-white/90 text-[10px] md:text-xs font-normal opacity-70 group-hover:opacity-100 transition-opacity duration-200">
+                        <div className="pointer-events-auto absolute bottom-3 right-3 rounded-md bg-black/70 px-2.5 py-1.5 text-xs text-white backdrop-blur-md md:text-sm">
                           {image.photographerInstagram ? (
                             <a
                               href={`https://www.instagram.com/${image.photographerInstagram.replace('@', '')}`}
@@ -219,12 +197,12 @@ const Gallery21 = () => {
                               className="hover:text-accent transition-colors no-underline flex items-center gap-1"
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <span className="text-[8px] md:text-[10px]">📷</span>
+                              <span aria-hidden="true">📷</span>
                               <span>{image.photographerInstagram}</span>
                             </a>
                           ) : (
                             <span className="flex items-center gap-1">
-                              <span className="text-[8px] md:text-[10px]">📷</span>
+                              <span aria-hidden="true">📷</span>
                               <span>{image.photographer}</span>
                             </span>
                           )}
