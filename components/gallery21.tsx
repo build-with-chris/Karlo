@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import React, { useState, useSyncExternalStore } from "react";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/effect-coverflow";
@@ -11,63 +12,66 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import { portfolioItems } from "@/data/portfolio";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Lightbox, { type LightboxImage } from "@/components/Lightbox";
 
-const Gallery21 = () => {
-  const { t } = useLanguage();
-  const [domLoaded, setDomLoaded] = useState(false);
-  const [shuffledImages, setShuffledImages] = useState<Array<{ 
-    src: string; 
-    alt: string;
-    photographer?: string;
-    photographerInstagram?: string;
-  }>>([]);
+// Mischt die Bilder so, dass zwei Fotos derselben Person nicht nebeneinander
+// liegen. Laeuft ausserhalb des Renders, weil Math.random unrein ist, und wird
+// pro Seitenaufruf genau einmal berechnet.
+function shuffleWithPhotographerSeparation<T extends { photographer?: string }>(
+  array: T[]
+): T[] {
+  const shuffled = [...array];
+  const maxAttempts = 100;
 
-  // Shuffle function that ensures no two images from the same photographer are adjacent
-  const shuffleWithPhotographerSeparation = <T extends { photographer?: string }>(array: T[]): T[] => {
-    const shuffled = [...array];
-    const maxAttempts = 100;
-    let attempts = 0;
-
-    while (attempts < maxAttempts) {
-      // Fisher-Yates shuffle
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-      // Check if no two images from the same photographer are adjacent
-      let isValid = true;
-      for (let i = 0; i < shuffled.length - 1; i++) {
-        const current = shuffled[i].photographer;
-        const next = shuffled[i + 1].photographer;
-        if (current && next && current === next) {
-          isValid = false;
-          break;
-        }
-      }
+    const hasNeighbourConflict = shuffled.some((item, i) => {
+      const next = shuffled[i + 1];
+      return (
+        next && item.photographer && next.photographer &&
+        item.photographer === next.photographer
+      );
+    });
 
-      if (isValid) {
-        return shuffled;
-      }
+    if (!hasNeighbourConflict) return shuffled;
+  }
 
-      attempts++;
-    }
+  // Keine perfekte Anordnung gefunden, dann eben die letzte
+  return shuffled;
+}
 
-    // If we couldn't find a perfect arrangement, return the shuffled array anyway
-    return shuffled;
-  };
+const EMPTY_IMAGES: LightboxImage[] = [];
+let shuffledCache: LightboxImage[] | null = null;
+const noopSubscribe = () => () => {};
 
-  useEffect(() => {
-    setDomLoaded(true);
-    // Shuffle images on mount with photographer separation
-    const images = portfolioItems.map(item => ({
-      src: item.thumb,
-      alt: item.alt,
-      photographer: item.photographer,
-      photographerInstagram: item.photographerInstagram,
-    }));
-    setShuffledImages(shuffleWithPhotographerSeparation(images));
-  }, []);
+function getShuffledImages(): LightboxImage[] {
+  if (!shuffledCache) {
+    shuffledCache = shuffleWithPhotographerSeparation(
+      portfolioItems.map((item) => ({
+        src: item.thumb,
+        alt: item.alt,
+        photographer: item.photographer,
+        photographerInstagram: item.photographerInstagram,
+      }))
+    );
+  }
+  return shuffledCache;
+}
+
+const Gallery21 = () => {
+  const { t } = useLanguage();
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  // Auf dem Server leer, im Browser die einmal gemischte Reihenfolge
+  const shuffledImages = useSyncExternalStore(
+    noopSubscribe,
+    getShuffledImages,
+    () => EMPTY_IMAGES
+  );
 
   const css = `
   .mySwiper21 {
@@ -93,6 +97,7 @@ const Gallery21 = () => {
   }
   
   .mySwiper21 .swiper-slide img {
+    position: absolute;
     display: block;
     width: 100%;
     height: 100%;
@@ -138,7 +143,7 @@ const Gallery21 = () => {
         <div className="pointer-events-none absolute right-0 z-10 h-full w-24 bg-gradient-to-l from-earth-50/20 md:from-earth-50/50 to-transparent" />
 
         <div className="relative h-[500px] w-full max-w-6xl mx-auto">
-          {domLoaded && shuffledImages.length > 0 && (
+          {shuffledImages.length > 0 && (
             <motion.div
               className="relative h-full w-full"
               initial={{ opacity: 0, translateY: 20 }}
@@ -151,8 +156,9 @@ const Gallery21 = () => {
               <Swiper
                 spaceBetween={30}
                 autoplay={{
-                  delay: 2000,
+                  delay: 4500,
                   disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
                 }}
                 effect="coverflow"
                 grabCursor={true}
@@ -189,12 +195,20 @@ const Gallery21 = () => {
                 {shuffledImages.map((image, index) => (
                   <SwiperSlide key={`${image.src}-${index}`}>
                     <div className="relative h-full w-full group">
-                    <img
-                      className="h-full w-full overflow-hidden rounded-3xl object-cover shadow-lg"
-                      src={image.src}
-                      alt={image.alt || `Karlo Janke Performance Moment ${index + 1}`}
-                      loading="lazy"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => setLightboxIndex(index)}
+                      className="relative block h-full w-full cursor-zoom-in overflow-hidden rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                      aria-label={`${t.portfolio.viewImage}: ${image.alt}`}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt || `Karlo Janke Performance Moment ${index + 1}`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 500px"
+                        className="object-cover shadow-lg"
+                      />
+                    </button>
                       {image.photographer && (
                         <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-md rounded-md px-2 py-1 text-white/90 text-[10px] md:text-xs font-normal opacity-70 group-hover:opacity-100 transition-opacity duration-200">
                           {image.photographerInstagram ? (
@@ -224,6 +238,14 @@ const Gallery21 = () => {
           )}
         </div>
       </div>
+
+      <Lightbox
+        images={shuffledImages}
+        index={lightboxIndex}
+        closeLabel={t.portfolio.close}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </div>
   );
 };
