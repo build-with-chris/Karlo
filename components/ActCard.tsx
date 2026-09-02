@@ -10,6 +10,8 @@ type Props = {
   video: string;
   poster: string;
   videoTitle: string;
+  /** Sekunde, ab der die Karte laeuft */
+  startAt: number;
   hint: string;
   isInView: boolean;
   /** Startrichtung der Einblendung, negativ heisst von links */
@@ -26,6 +28,7 @@ export default function ActCard({
   video,
   poster,
   videoTitle,
+  startAt,
   hint,
   isInView,
   offsetX,
@@ -58,9 +61,20 @@ export default function ActCard({
 
   // Ein nachtraeglich eingehaengtes <source> beachtet das Video erst nach
   // load(). Ohne diesen Aufruf bliebe dauerhaft nur das Standbild stehen.
+  // Danach an die gewaehlte Stelle springen, der Anfang beider Trailer ist leer.
   useEffect(() => {
-    if (shouldLoadVideo) videoRef.current?.load();
-  }, [shouldLoadVideo]);
+    const element = videoRef.current;
+    if (!shouldLoadVideo || !element) return;
+
+    const springen = () => {
+      if (startAt > 0 && element.duration > startAt) element.currentTime = startAt;
+    };
+
+    element.addEventListener("loadedmetadata", springen, { once: true });
+    element.load();
+
+    return () => element.removeEventListener("loadedmetadata", springen);
+  }, [shouldLoadVideo, startAt]);
 
   const open = () => onOpen(videoRef.current?.currentTime ?? 0);
 
@@ -70,7 +84,7 @@ export default function ActCard({
       initial={{ opacity: 0, x: offsetX }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: offsetX }}
       transition={{ duration: 0.8, delay }}
-      className={`card relative min-h-[60vh] cursor-pointer overflow-hidden border border-earth-200 bg-earth-900 shadow-md transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:min-h-[500px] ${className}`}
+      className={`card relative aspect-[4/3] cursor-pointer overflow-hidden border border-earth-200 bg-earth-900 shadow-md transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:aspect-auto md:min-h-[500px] ${className}`}
       onClick={open}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -120,9 +134,8 @@ export default function ActCard({
             strokeLinejoin="round"
             aria-hidden="true"
           >
-            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-            <polyline points="10 17 15 12 10 7" />
-            <line x1="15" y1="12" x2="3" y2="12" />
+            <circle cx="12" cy="12" r="10" />
+            <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none" />
           </svg>
           <span>{hint}</span>
         </div>

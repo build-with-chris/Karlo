@@ -38,6 +38,9 @@ export type Act = {
   video: string;
   poster: string;
   videoTitle: string;
+  /** Sekunde, ab der die Karte laeuft. Der Anfang beider Trailer ist dunkel
+      und fast leer, hier steht der Artist deutlich im Bild. */
+  startAt: number;
 };
 
 export const acts: Act[] = [
@@ -46,12 +49,14 @@ export const acts: Act[] = [
     video: "/Straps_Trailer.mp4",
     poster: "/StrapsPoster.webp",
     videoTitle: "Karlo Janke Aerial Straps Performance Trailer",
+    startAt: 29,
   },
   {
     id: "cyrWheel",
     video: "/Cyr-Wheel_Trailer.mp4",
     poster: "/CyrWheelPoster.webp",
     videoTitle: "Karlo Janke Cyr Wheel Performance Trailer",
+    startAt: 15,
   },
 ];
 
