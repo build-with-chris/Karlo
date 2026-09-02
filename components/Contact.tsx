@@ -5,6 +5,7 @@ import { useInView } from "framer-motion";
 import { useRef, useState, FormEvent } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SocialLinks from "@/components/SocialLinks";
 
 export default function Contact() {
   const { t, language } = useLanguage();
@@ -16,6 +17,8 @@ export default function Contact() {
     email: "",
     message: "",
     consent: false,
+    // Honeypot: bleibt bei echten Besuchern leer, Bots fuellen es aus
+    website: "",
   });
 
   const [errors, setErrors] = useState({
@@ -90,6 +93,7 @@ export default function Contact() {
           name: formData.name,
           email: formData.email,
           message: formData.message,
+          website: formData.website,
         }),
       });
 
@@ -100,7 +104,13 @@ export default function Contact() {
       }
 
       setIsSubmitted(true);
-      setFormData({ name: "", email: "", message: "", consent: false });
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+        consent: false,
+        website: "",
+      });
 
       // Reset success message after 5 seconds
       setTimeout(() => {
@@ -138,6 +148,21 @@ export default function Contact() {
               className="lg:col-span-3"
             >
               <form onSubmit={handleSubmit} className="space-y-8" noValidate>
+                {/* Honeypot gegen Spam-Bots. Fuer Menschen unsichtbar und
+                    fuer Screenreader ausgeblendet. */}
+                <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                  <label htmlFor="website">Website (bitte frei lassen)</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.website}
+                    onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                  />
+                </div>
+
                 <div>
                   <label
                     htmlFor="name"
@@ -382,67 +407,12 @@ export default function Contact() {
                   <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
                     {t.contact.socialMedia}
                   </h3>
-                  <div className="flex gap-3">
-                    <a
-                      href="https://www.instagram.com/karlojanke/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-lg bg-earth-100 hover:bg-accent hover:text-white flex items-center justify-center text-earth-700 transition-all duration-200"
-                      aria-label="Instagram"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                      </svg>
-                    </a>
-                    <a
-                      href="https://www.youtube.com/@karlojanke"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-lg bg-earth-100 hover:bg-accent hover:text-white flex items-center justify-center text-earth-700 transition-all duration-200"
-                      aria-label="YouTube"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-                      </svg>
-                    </a>
-                  </div>
+                  <SocialLinks />
                 </div>
               </div>
 
               {/* PepeShows Booking */}
-              <div 
-                className="bg-accent/10 border border-accent/20 rounded-lg p-5 transition-all duration-300"
-                style={{ boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(176, 138, 91, 0.15), 0 4px 6px -4px rgba(176, 138, 91, 0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)';
-                }}
-              >
+              <div className="rounded-lg border border-accent/20 bg-accent/10 p-5 shadow-md transition-shadow duration-300 hover:shadow-xl">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-12 h-12 rounded-lg bg-earth-800 flex items-center justify-center flex-shrink-0 p-2">
                     <Image
@@ -487,16 +457,7 @@ export default function Contact() {
               </div>
 
               {/* Agency Note */}
-              <div 
-                className="bg-earth-100/50 border border-earth-200 rounded-lg p-6 transition-all duration-300"
-                style={{ boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(45, 36, 28, 0.12), 0 4px 6px -4px rgba(45, 36, 28, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)';
-                }}
-              >
+              <div className="rounded-lg border border-earth-200 bg-earth-100/50 p-6 shadow-md transition-shadow duration-300 hover:shadow-xl">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-earth-500 mt-0 mb-3">
                   {t.contact.forAgencies.title}
                 </h3>
