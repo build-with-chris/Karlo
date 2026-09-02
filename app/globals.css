@@ -391,3 +391,9 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Videos im Vollbild vollstaendig zeigen statt beschneiden */
+video:fullscreen,
+video:-webkit-full-screen {
+  object-fit: contain !important;
+}

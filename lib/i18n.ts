@@ -38,23 +38,16 @@ export const translations = {
         title: "Cyr Wheel",
         description:
           "Kraft, Eleganz und Präzision im großen Rad. Dynamische Rotationen verschmelzen mit akrobatischer Finesse zu einem hypnotisierenden visuellen Erlebnis.",
-        stageArea: "Bühnenfläche",
-        ceilingHeight: "Deckenhöhe",
-        duration: "Dauer",
-        techRider: "Tech-Rider verfügbar",
-        keyFacts: "Technische Details",
-        watchHeroVideo: "Hero-Video ansehen",
+        secondTrailerDescription:
+          "Dieses Video zeigt eine umfassende Performance mit dem Cyr Wheel und gibt einen Einblick in die Vielseitigkeit und Präzision der Artistik.",
+        showSecondTrailer: "Zweiten Trailer ansehen",
+        showFirstTrailer: "Zurück zum ersten Trailer",
         clickForDetails: "Klicken für Details",
       },
       aerial: {
         title: "Aerial",
         description:
           "Schwerelos in der Vertikalen. Grazie verbindet sich mit athletischer Kontrolle zu Momenten poetischer Spannung. Elegant, kraftvoll, präzise.",
-        stageArea: "Bühnenfläche",
-        ceilingHeight: "Deckenhöhe",
-        duration: "Dauer",
-        techRider: "Tech-Rider verfügbar",
-        keyFacts: "Technische Details",
         clickForDetails: "Klicken für Details",
       },
       customActs: {
@@ -150,23 +143,16 @@ export const translations = {
         title: "Cyr Wheel",
         description:
           "Power, elegance, and precision in the large wheel. Dynamic rotations merge with acrobatic finesse into a hypnotizing visual experience.",
-        stageArea: "Stage Area",
-        ceilingHeight: "Ceiling Height",
-        duration: "Duration",
-        techRider: "Tech Rider available",
-        keyFacts: "Key Facts",
-        watchHeroVideo: "Watch Hero Video",
+        secondTrailerDescription:
+          "This video showcases a comprehensive performance with the Cyr Wheel and provides insight into the versatility and precision of the artistry.",
+        showSecondTrailer: "Watch second trailer",
+        showFirstTrailer: "Back to the first trailer",
         clickForDetails: "Click for Details",
       },
       aerial: {
         title: "Aerial",
         description:
           "Weightless in the vertical. Grace combines with athletic control into moments of poetic tension. Elegant, powerful, precise.",
-        stageArea: "Stage Area",
-        ceilingHeight: "Ceiling Height",
-        duration: "Duration",
-        techRider: "Tech Rider available",
-        keyFacts: "Key Facts",
         clickForDetails: "Click for Details",
       },
       customActs: {
