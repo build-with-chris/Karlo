@@ -1,6 +1,11 @@
 "use client";
 
-import React, { createContext, useContext, useSyncExternalStore } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useSyncExternalStore,
+} from "react";
 import { Language, translations, defaultLanguage } from "@/lib/i18n";
 
 const STORAGE_KEY = "language";
@@ -66,6 +71,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     getSnapshot,
     getServerSnapshot
   );
+
+  // Das lang-Attribut muss der angezeigten Sprache folgen, sonst liest ein
+  // Screenreader den englischen Text mit deutscher Aussprache vor.
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   return (
     <LanguageContext.Provider
