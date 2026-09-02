@@ -16,39 +16,69 @@ import Lightbox, { type LightboxImage } from "@/components/Lightbox";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { portfolioItems } from "@/data/portfolio";
 
-// Mischt die Bilder so, dass zwei Fotos derselben Person nicht nebeneinander
-// liegen. Laeuft ausserhalb des Renders, weil Math.random unrein ist, und wird
-// pro Seitenaufruf genau einmal berechnet.
-function mischen<T extends { photographer?: string }>(array: T[]): T[] {
-  const gemischt = [...array];
+type GalerieBild = LightboxImage & {
+  tone: (typeof portfolioItems)[number]["tone"];
+};
 
-  for (let versuch = 0; versuch < 100; versuch++) {
-    for (let i = gemischt.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [gemischt[i], gemischt[j]] = [gemischt[j], gemischt[i]];
-    }
-
-    const nachbarKonflikt = gemischt.some((eintrag, i) => {
-      const naechster = gemischt[i + 1];
-      return (
-        naechster &&
-        eintrag.photographer &&
-        naechster.photographer &&
-        eintrag.photographer === naechster.photographer
-      );
-    });
-
-    if (!nachbarKonflikt) return gemischt;
+/**
+ * Verteilt die Fotos im Reissverschluss ueber die drei Farbstimmungen, damit
+ * nicht mehrere blaue oder mehrere warme Buehnenbilder nebeneinander liegen.
+ * Innerhalb einer Stimmung wird zusaetzlich der Fotograf gewechselt.
+ * Laeuft ausserhalb des Renders, weil Math.random unrein ist, und einmal pro
+ * Seitenaufruf.
+ */
+function mischen(bilder: GalerieBild[]): GalerieBild[] {
+  const gruppen = new Map<string, GalerieBild[]>();
+  for (const bild of bilder) {
+    const gruppe = gruppen.get(bild.tone) ?? [];
+    gruppe.push(bild);
+    gruppen.set(bild.tone, gruppe);
   }
 
-  return gemischt;
+  for (const gruppe of gruppen.values()) {
+    for (let i = gruppe.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [gruppe[i], gruppe[j]] = [gruppe[j], gruppe[i]];
+    }
+  }
+
+  const ergebnis: GalerieBild[] = [];
+  let zuletzt: GalerieBild | undefined;
+
+  while (ergebnis.length < bilder.length) {
+    const offen = [...gruppen.entries()].filter(([, g]) => g.length > 0);
+    if (offen.length === 0) break;
+
+    // Andere Stimmung als zuletzt bevorzugen, darunter die groesste Gruppe,
+    // damit gegen Ende keine Stimmung uebrig bleibt und sich haeuft.
+    offen.sort((a, b) => {
+      const wertA = (a[0] === zuletzt?.tone ? 100 : 0) - a[1].length;
+      const wertB = (b[0] === zuletzt?.tone ? 100 : 0) - b[1].length;
+      return wertA - wertB;
+    });
+
+    const gruppe = offen[0][1];
+    let index = 0;
+    if (zuletzt?.photographer) {
+      const anderer = gruppe.findIndex(
+        (bild) => bild.photographer !== zuletzt!.photographer
+      );
+      if (anderer !== -1) index = anderer;
+    }
+
+    const [gewaehlt] = gruppe.splice(index, 1);
+    ergebnis.push(gewaehlt);
+    zuletzt = gewaehlt;
+  }
+
+  return ergebnis;
 }
 
-const LEER: LightboxImage[] = [];
-let zwischenspeicher: LightboxImage[] | null = null;
+const LEER: GalerieBild[] = [];
+let zwischenspeicher: GalerieBild[] | null = null;
 const keinAbo = () => () => {};
 
-function bilderHolen(): LightboxImage[] {
+function bilderHolen(): GalerieBild[] {
   if (!zwischenspeicher) {
     zwischenspeicher = mischen(
       portfolioItems.map((item) => ({
@@ -56,6 +86,7 @@ function bilderHolen(): LightboxImage[] {
         alt: item.alt,
         photographer: item.photographer,
         photographerInstagram: item.photographerInstagram,
+        tone: item.tone,
       }))
     );
   }
@@ -109,18 +140,28 @@ export default function Eindruecke() {
       ? null
       : bilder[(current + (isMobile ? 0 : 1)) % bilder.length];
 
-  const drehung = useMemo(() => {
-    return (index: number) => {
-      if (bilder.length === 0) return "";
-      const position = (index - current + bilder.length) % bilder.length;
-      if (position === 0)
-        return "md:-rotate-45 md:translate-x-40 md:scale-75 md:relative";
-      if (position === 1) return "md:rotate-0 md:z-10 md:relative";
-      if (position === 2)
-        return "md:rotate-45 md:-translate-x-40 md:scale-75 md:relative";
-      return "";
-    };
+  const platz = useMemo(() => {
+    return (index: number) =>
+      bilder.length === 0
+        ? -1
+        : (index - current + bilder.length) % bilder.length;
   }, [current, bilder.length]);
+
+  const drehung = (position: number) => {
+    if (position === 0) return "md:-rotate-45 md:translate-x-40 md:scale-75";
+    if (position === 2) return "md:rotate-45 md:-translate-x-40 md:scale-75";
+    return "";
+  };
+
+  // Die Stapelung entscheidet sich auf Ebene der Karussell-Elemente. Ein
+  // z-Index am inneren Knopf konkurriert nicht mit den Knoepfen der
+  // Nachbarelemente, deshalb lag bisher immer das letzte im DOM oben, also
+  // das rechte Bild ueber dem mittleren.
+  const ebene = (position: number) => {
+    if (position === 1) return "md:relative md:z-20";
+    if (position === 0 || position === 2) return "md:relative md:z-10";
+    return "";
+  };
 
   if (bilder.length === 0) {
     // Platzhalter in gleicher Hoehe, damit beim Nachladen nichts springt
@@ -137,12 +178,15 @@ export default function Eindruecke() {
       >
         <CarouselContent>
           {bilder.map((bild, index) => (
-            <CarouselItem key={`${bild.src}-${index}`} className="my-10 md:basis-1/3">
+            <CarouselItem
+              key={`${bild.src}-${index}`}
+              className={`my-10 md:basis-1/3 ${ebene(platz(index))}`}
+            >
               <button
                 type="button"
                 onClick={() => setLightboxIndex(index)}
                 aria-label={`${t.portfolio.viewImage}: ${bild.alt}`}
-                className={`relative block h-[420px] w-full cursor-zoom-in overflow-hidden transition-transform duration-500 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${drehung(index)}`}
+                className={`relative block h-[420px] w-full cursor-zoom-in overflow-hidden transition-transform duration-500 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${drehung(platz(index))}`}
               >
                 <Image
                   src={bild.src}
