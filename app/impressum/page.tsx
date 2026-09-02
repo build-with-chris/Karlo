@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Impressum",
@@ -19,7 +20,7 @@ export default function ImpressumPage() {
         <div className="prose prose-earth max-w-none">
           <section className="mb-8">
             <h2 className="font-serif text-2xl text-earth-900 mb-4">
-              Angaben gemäß § 5 TMG
+              Angaben gemäß § 5 DDG
             </h2>
             <p className="text-earth-700 leading-relaxed">
               Karlo Janke<br />
@@ -62,7 +63,7 @@ export default function ImpressumPage() {
 
           <section className="mb-8">
             <h2 className="font-serif text-2xl text-earth-900 mb-4">
-              Inhaltlich Verantwortlicher gemäß § 55 Abs. 2 RStV
+              Inhaltlich Verantwortlicher gemäß § 18 Abs. 2 MStV
             </h2>
             <p className="text-earth-700 leading-relaxed">
               Karl-Antonio Janke<br />
@@ -79,7 +80,7 @@ export default function ImpressumPage() {
               Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt.
               Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte
               kann jedoch keine Gewähr übernommen werden. Als Diensteanbieter
-              bin ich gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten
+              bin ich gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten
               nach den allgemeinen Gesetzen verantwortlich.
             </p>
           </section>
@@ -112,7 +113,7 @@ export default function ImpressumPage() {
 
         {/* Back to Home Link */}
         <div className="mt-12 pt-8 border-t border-earth-300">
-          <a
+          <Link
             href="/"
             className="inline-flex items-center text-accent hover:text-accent-light transition-colors group"
           >
@@ -131,7 +132,7 @@ export default function ImpressumPage() {
               />
             </svg>
             Zurück zur Startseite
-          </a>
+          </Link>
         </div>
       </div>
     </div>
