@@ -8,6 +8,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const MOBILE_BUTTON_SIZE = 44; // Apple's recommended minimum touch target
 const NAV_HEIGHT = 80;
 const NAV_BREAKPOINT = 1280; // Breakpoint when "Über Karlo" wraps to 2 lines
+// Ausserhalb der Komponente, damit der Observer-Effekt eine stabile Abhaengigkeit hat
+const SECTION_IDS = ["hero", "about", "acts", "portfolio", "contact"] as const;
 
 export default function Navigation() {
   const { language, setLanguage, t } = useLanguage();
@@ -16,13 +18,14 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(false);
 
-  const navItems = [
-    { id: "hero", label: t.nav.start },
-    { id: "about", label: t.nav.about },
-    { id: "acts", label: t.nav.acts },
-    { id: "portfolio", label: t.nav.portfolio },
-    { id: "contact", label: t.nav.contact },
-  ];
+  const navLabels: Record<(typeof SECTION_IDS)[number], string> = {
+    hero: t.nav.start,
+    about: t.nav.about,
+    acts: t.nav.acts,
+    portfolio: t.nav.portfolio,
+    contact: t.nav.contact,
+  };
+  const navItems = SECTION_IDS.map((id) => ({ id, label: navLabels[id] }));
 
   useEffect(() => {
     // Check if screen width is below nav breakpoint
@@ -82,7 +85,7 @@ export default function Navigation() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    navItems.forEach(({ id }) => {
+    SECTION_IDS.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
@@ -136,7 +139,7 @@ export default function Navigation() {
             >
               <div className="relative h-12 w-32 md:w-40">
                 <Image
-                  src={isScrolled ? "/LogoSchwarz.png" : "/LogoWeiß.png"}
+                  src={isScrolled ? "/LogoSchwarz.png" : "/LogoWeiss.png"}
                   alt="Karlo Logo"
                   fill
                   className="object-contain object-left"

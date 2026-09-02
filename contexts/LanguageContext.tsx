@@ -1,9 +1,11 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useSyncExternalStore } from "react";
 import { Language, translations, defaultLanguage } from "@/lib/i18n";
 
-type TranslationsType = typeof translations[Language];
+const STORAGE_KEY = "language";
+
+type TranslationsType = (typeof translations)[Language];
 
 type LanguageContextType = {
   language: Language;
@@ -11,33 +13,68 @@ type LanguageContextType = {
   t: TranslationsType;
 };
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+// Kleiner Speicher ausserhalb von React. So liest der erste Client-Render die
+// gespeicherte Sprache direkt, ohne setState im Effekt und ohne Nachrendern.
+const listeners = new Set<() => void>();
+let cachedLanguage: Language | null = null;
+
+function isLanguage(value: unknown): value is Language {
+  return value === "de" || value === "en";
+}
+
+function getSnapshot(): Language {
+  if (cachedLanguage === null) {
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      cachedLanguage = isLanguage(stored) ? stored : defaultLanguage;
+    } catch {
+      // Privates Fenster oder gesperrter Speicher
+      cachedLanguage = defaultLanguage;
+    }
+  }
+  return cachedLanguage;
+}
+
+function getServerSnapshot(): Language {
+  return defaultLanguage;
+}
+
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  return () => {
+    listeners.delete(onChange);
+  };
+}
+
+function setLanguageInStore(lang: Language) {
+  cachedLanguage = lang;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, lang);
+  } catch {
+    // Ohne Speicher gilt die Wahl nur fuer diese Sitzung
+  }
+  listeners.forEach((listener) => listener());
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined
+);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(defaultLanguage);
-  const [mounted, setMounted] = useState(false);
+  const language = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  );
 
-  useEffect(() => {
-    // Load language from localStorage on mount
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-    if (savedLanguage && (savedLanguage === "de" || savedLanguage === "en")) {
-      setLanguageState(savedLanguage);
-    }
-    setMounted(true);
-  }, []);
-
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("language", lang);
-    }
-  };
-
-  const t = translations[language];
-
-  // Always provide the context, even before mount (uses defaultLanguage)
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider
+      value={{
+        language,
+        setLanguage: setLanguageInStore,
+        t: translations[language],
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );
@@ -50,4 +87,3 @@ export function useLanguage() {
   }
   return context;
 }
-

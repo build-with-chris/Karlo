@@ -1,41 +1,59 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useIsMounted } from "@/lib/useIsMounted";
+
+const STORAGE_KEY = "cookieConsent";
+
+function readStoredConsent(): string | null {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function storeConsent(preferences: Record<string, unknown>) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  } catch {
+    // Ohne Speicher gilt die Wahl nur fuer diese Sitzung
+  }
+}
 
 export default function CookieBanner() {
-  const [showBanner, setShowBanner] = useState(false);
+  const isMounted = useIsMounted();
+  const [dismissed, setDismissed] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
-  useEffect(() => {
-    // Prüfe ob Cookie-Präferenzen bereits gesetzt wurden
-    const cookieConsent = localStorage.getItem("cookieConsent");
-    if (!cookieConsent) {
-      setShowBanner(true);
-    }
-  }, []);
+  // Erst im Browser lesen, auf dem Server gibt es keinen localStorage
+  const storedConsent = useMemo(
+    () => (isMounted ? readStoredConsent() : null),
+    [isMounted]
+  );
+
+  const showBanner = isMounted && !storedConsent && !dismissed;
 
   const acceptAll = () => {
-    const preferences = {
+    storeConsent({
       necessary: true,
       functional: true,
-      analytics: false, // Google Analytics falls später benötigt
+      analytics: false, // Platz fuer spaetere Analyse-Dienste
       timestamp: new Date().toISOString(),
-    };
-    localStorage.setItem("cookieConsent", JSON.stringify(preferences));
-    setShowBanner(false);
+    });
+    setDismissed(true);
   };
 
   const acceptNecessary = () => {
-    const preferences = {
+    storeConsent({
       necessary: true,
       functional: false,
       analytics: false,
       timestamp: new Date().toISOString(),
-    };
-    localStorage.setItem("cookieConsent", JSON.stringify(preferences));
-    setShowBanner(false);
+    });
+    setDismissed(true);
   };
 
   const savePreferences = (preferences: {
@@ -43,12 +61,8 @@ export default function CookieBanner() {
     functional: boolean;
     analytics: boolean;
   }) => {
-    const fullPreferences = {
-      ...preferences,
-      timestamp: new Date().toISOString(),
-    };
-    localStorage.setItem("cookieConsent", JSON.stringify(fullPreferences));
-    setShowBanner(false);
+    storeConsent({ ...preferences, timestamp: new Date().toISOString() });
+    setDismissed(true);
     setShowSettings(false);
   };
 
