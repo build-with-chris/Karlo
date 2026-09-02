@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Libre_Baskerville } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import MotionProvider from "@/components/MotionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -100,16 +101,18 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${inter.variable} ${libreBaskerville.variable}`}>
       <body className="antialiased font-sans">
-        <LanguageProvider>
-          {/* Skip to main content link for accessibility */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:shadow-lg"
-          >
-            Zum Hauptinhalt springen
-          </a>
-          {children}
-        </LanguageProvider>
+        <MotionProvider>
+          <LanguageProvider>
+            {/* Skip to main content link for accessibility */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:shadow-lg"
+            >
+              Zum Hauptinhalt springen
+            </a>
+            {children}
+          </LanguageProvider>
+        </MotionProvider>
       </body>
     </html>
   );
