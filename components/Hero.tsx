@@ -28,6 +28,8 @@ export default function Hero() {
           sizes="100vw"
           className="object-cover object-[center_25%] md:hidden"
         />
+        {/* Eigene, kurze Schleife statt des vollen Trailers: heller, 2 statt
+            4,7 MB, und der Trailer bleibt im Modal unveraendert erhalten. */}
         <video
           autoPlay
           loop
@@ -38,11 +40,12 @@ export default function Hero() {
           aria-hidden="true"
           className="hidden h-full w-full object-cover md:block"
         >
-          <source src="/CyrHero.mp4" type="video/mp4" />
+          <source src="/HeroLoop.mp4" type="video/mp4" />
         </video>
 
-        {/* Abdunklung fuer den Textkontrast, auf Mobil staerker als auf Desktop */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/45 to-black/60 md:from-black/20 md:via-black/15 md:to-black/40" />
+        {/* Abdunklung nur so stark wie noetig: oben fuer die Navigation, unten
+            fuer Name und Buttons, in der Mitte bleibt das Bild offen. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/55 md:from-black/30 md:via-black/15 md:to-black/55" />
 
         {/* Weicher Uebergang in den hellen Seitenhintergrund */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-earth-50/70 md:hidden" />
