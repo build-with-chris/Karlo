@@ -1,0 +1,7 @@
+# robots.txt for Karlo Artist Portfolio
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://karlo.example.com/sitemap.xml

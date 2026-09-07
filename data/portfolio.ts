@@ -6,10 +6,6 @@ export interface PortfolioItem {
   thumb: string;
   alt: string;
   category: "Cyr Wheel" | "Aerial Straps" | "Aerial";
-  /** Farbstimmung des Fotos, aus dem Bild gemessen. Steuert das Mischen in
-      der Galerie, damit nicht mehrere blaue oder warme Buehnenbilder
-      hintereinander stehen. */
-  tone: "kalt" | "warm" | "neutral";
   photographer?: string;
   photographerInstagram?: string;
 }
@@ -23,7 +19,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Straps.webp",
     alt: "Karlo Janke performing Aerial Straps routine",
     category: "Aerial Straps",
-    tone: "neutral",
   },
   {
     id: 4,
@@ -33,7 +28,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/101-P2677003.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -45,7 +39,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/57-P2666725.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "neutral",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -57,7 +50,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/58-P2666729.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "neutral",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -69,7 +61,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/61-P2666752.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -81,7 +72,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/72-P2666798.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -93,7 +83,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/73-P2666801.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -105,7 +94,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/76-P2666813.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -117,7 +105,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/79-P2666828.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -129,7 +116,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302212.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    tone: "warm",
     photographer: "Markus Vicari",
   },
   {
@@ -140,7 +126,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302238.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    tone: "warm",
     photographer: "Markus Vicari",
   },
   {
@@ -151,7 +136,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302288.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    tone: "warm",
     photographer: "Markus Vicari",
   },
   {
@@ -162,7 +146,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302340.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    tone: "warm",
     photographer: "Markus Vicari",
   },
   {
@@ -173,7 +156,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/7M302374.webp",
     alt: "Karlo Janke performance moment",
     category: "Aerial",
-    tone: "warm",
     photographer: "Markus Vicari",
   },
   {
@@ -184,7 +166,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/85-P2666894.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "neutral",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -196,7 +177,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/92-P2666929.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "neutral",
     photographer: "Stéphane Le Breton",
     photographerInstagram: "@slb_fotografie",
   },
@@ -208,7 +188,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/_DSC5731tag.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
     photographer: "Turlach O Broin",
   },
   {
@@ -219,7 +198,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/Oper_20231025.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "kalt",
   },
   {
     id: 21,
@@ -229,7 +207,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/Rus_Haus_Berlin.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "neutral",
   },
   {
     id: 22,
@@ -239,7 +216,6 @@ export const portfolioItems: PortfolioItem[] = [
     thumb: "/Auswahl 2.0/Turlach_o_Broin_1.webp",
     alt: "Karlo Janke performance moment",
     category: "Cyr Wheel",
-    tone: "warm",
     photographer: "Turlach O Broin",
   },
 ];

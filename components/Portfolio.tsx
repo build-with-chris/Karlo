@@ -1,16 +1,11 @@
 "use client";
 
-import Eindruecke from "@/components/Eindruecke";
+import { Gallery21 } from "@/components/gallery21";
 
 export default function Portfolio() {
   return (
-    <section
-      id="portfolio"
-      className="section bg-white pt-8 pb-6 md:pt-12 md:pb-8 lg:pt-12 lg:pb-10"
-    >
-      <div className="container max-w-6xl overflow-x-clip">
-        <Eindruecke />
-      </div>
+    <section id="portfolio" className="section bg-gradient-to-b from-earth-50/50 via-white/30 to-white/20 pt-8 md:pt-12 lg:pt-12 pb-6 md:pb-8 lg:pb-10">
+      <Gallery21 />
     </section>
   );
 }

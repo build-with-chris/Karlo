@@ -6,7 +6,6 @@ import Portfolio from "@/components/Portfolio";
 import Contact from "@/components/Contact";
 import SiteFooter from "@/components/SiteFooter";
 import CookieBanner from "@/components/CookieBanner";
-import StickyContact from "@/components/StickyContact";
 
 export default function Home() {
   // Schema.org structured data for SEO
@@ -68,17 +67,14 @@ export default function Home() {
       />
 
       <Navigation />
-      {/* Reihenfolge nach dem Blick eines Veranstalters: erst sehen, was er
-          bekommt, dann welche Acts es gibt, dann wer dahintersteht. */}
       <main id="main-content" className="min-h-screen">
         <Hero />
-        <Portfolio />
-        <Acts />
         <About />
+        <Acts />
+        <Portfolio />
         <Contact />
       </main>
       <SiteFooter />
-      <StickyContact />
       <CookieBanner />
     </>
   );

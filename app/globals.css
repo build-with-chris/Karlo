@@ -19,9 +19,15 @@
   /* Custom Breakpoints */
   --breakpoint-nav: 1200px;
 
-  /* Kein eigenes Spacing hier: --spacing-xl und Geschwister ueberschreiben in
-     Tailwind 4 die Groessennamen, wodurch max-w-3xl statt 48rem nur 6rem misst.
-     Die Werte wurden nirgends verwendet. */
+  /* Spacing Scale */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 3rem;      /* 48px */
+  --spacing-2xl: 4rem;     /* 64px */
+  --spacing-3xl: 6rem;     /* 96px */
+  --spacing-4xl: 8rem;     /* 128px */
 
   /* Shadow Scale */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -61,7 +67,7 @@
   }
 
   h2 {
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
     margin-bottom: 1rem;
     margin-top: 1.5rem;
   }
@@ -384,10 +390,4 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Videos im Vollbild vollstaendig zeigen statt beschneiden */
-video:fullscreen,
-video:-webkit-full-screen {
-  object-fit: contain !important;
 }

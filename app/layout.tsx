@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Libre_Baskerville } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import MotionProvider from "@/components/MotionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -67,11 +66,9 @@ export const metadata: Metadata = {
     description: "Karlo Janke – Professioneller Cyr Wheel & Aerial Artist. Fesselnde Performances für Events, Festivals und Theater. Buchen Sie jetzt Ihre maßgeschneiderte Artistik-Performance.",
     images: ["/og-image.jpg"],
   },
-  manifest: "/site.webmanifest",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -100,19 +97,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className={`${inter.variable} ${libreBaskerville.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
       <body className="antialiased font-sans">
-        <MotionProvider>
-          <LanguageProvider>
-            {/* Skip to main content link for accessibility */}
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:shadow-lg"
-            >
-              Zum Hauptinhalt springen
-            </a>
-            {children}
-          </LanguageProvider>
-        </MotionProvider>
+        <LanguageProvider>
+          {/* Skip to main content link for accessibility */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:shadow-lg"
+          >
+            Zum Hauptinhalt springen
+          </a>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

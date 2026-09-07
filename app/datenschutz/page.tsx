@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
@@ -64,18 +63,88 @@ export default function DatenschutzPage() {
 
           <section className="mb-8">
             <h2 className="font-serif text-2xl text-earth-900 mb-4">
-              3. Web-Analyse und Tracking
+              3. Einsatz von Google Analytics
             </h2>
             <p className="text-earth-700 leading-relaxed mb-4">
-              Diese Website setzt keine Analyse-, Tracking- oder
-              Marketing-Dienste ein. Es werden keine Daten an Google Analytics
-              oder vergleichbare Anbieter übermittelt und es findet keine
-              Profilbildung statt.
+              Diese Website verwendet Google Analytics, einen Webanalysedienst
+              der Google Ireland Limited („Google"). Google Analytics verwendet
+              sogenannte „Cookies", also Textdateien, die auf Ihrem Computer
+              gespeichert werden und die eine Analyse der Benutzung der Website
+              durch Sie ermöglichen.
+            </p>
+            <p className="text-earth-700 leading-relaxed mb-4">
+              Die durch das Cookie erzeugten Informationen über Ihre Benutzung
+              dieser Website werden in der Regel an einen Server von Google in
+              den USA übertragen und dort gespeichert. Diese Website nutzt die
+              IP-Anonymisierung, sodass Ihre IP-Adresse innerhalb der EU oder
+              des EWR vor der Übermittlung gekürzt wird.
+            </p>
+            <p className="text-earth-700 leading-relaxed mb-4">
+              <strong className="text-earth-900">
+                Zweck der Verarbeitung:
+              </strong>{" "}
+              Analyse des Nutzerverhaltens, um das Angebot zu verbessern.
+              <br />
+              <strong className="text-earth-900">Rechtsgrundlage:</strong> Art.
+              6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).
+            </p>
+            <p className="text-earth-700 leading-relaxed mb-4">
+              Sie können die Speicherung der Cookies durch eine entsprechende
+              Einstellung Ihrer Browser-Software verhindern. Außerdem können
+              Sie die Erfassung der durch das Cookie erzeugten und auf Ihre
+              Nutzung der Website bezogenen Daten (inkl. IP-Adresse) an Google
+              sowie die Verarbeitung dieser Daten durch Google verhindern,
+              indem Sie das unter folgendem Link verfügbare Browser-Plugin
+              herunterladen und installieren:
+            </p>
+            <p className="text-earth-300 leading-relaxed mb-4">
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:text-accent-light transition-colors inline-flex items-center gap-2"
+              >
+                Google Analytics Opt-out Browser-Plugin
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
             </p>
             <p className="text-earth-700 leading-relaxed">
-              Im lokalen Speicher Ihres Browsers werden lediglich Ihre gewählte
-              Sprache und Ihre Auswahl im Cookie-Hinweis abgelegt. Diese Angaben
-              verlassen Ihr Gerät nicht und werden nicht an uns übertragen.
+              Weitere Informationen zum Datenschutz bei Google finden Sie hier:{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:text-accent-light transition-colors inline-flex items-center gap-2"
+              >
+                Google Privacy Policy
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
             </p>
           </section>
 
@@ -129,7 +198,7 @@ export default function DatenschutzPage() {
 
         {/* Back to Home Link */}
         <div className="mt-12 pt-8 border-t border-earth-300">
-          <Link
+          <a
             href="/"
             className="inline-flex items-center text-accent hover:text-accent-light transition-colors group"
           >
@@ -148,7 +217,7 @@ export default function DatenschutzPage() {
               />
             </svg>
             Zurück zur Startseite
-          </Link>
+          </a>
         </div>
       </div>
     </div>
