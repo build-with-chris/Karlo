@@ -1,20 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { subscribeToStorage, writeToStorage } from "@/lib/clientStorage";
+
+const STORAGE_KEY = "cookieConsent";
+
+// Prüft ob Cookie-Präferenzen bereits gesetzt wurden
+function hasStoredConsent() {
+  return localStorage.getItem(STORAGE_KEY) !== null;
+}
+
+// Beim Serverrendern gilt der Banner als erledigt, sonst steckt er im HTML
+// und blitzt bei Besuchern auf, die längst zugestimmt haben.
+function assumeConsent() {
+  return true;
+}
 
 export default function CookieBanner() {
-  const [showBanner, setShowBanner] = useState(false);
+  const consentGiven = useSyncExternalStore(
+    subscribeToStorage,
+    hasStoredConsent,
+    assumeConsent
+  );
   const [showSettings, setShowSettings] = useState(false);
 
-  useEffect(() => {
-    // Prüfe ob Cookie-Präferenzen bereits gesetzt wurden
-    const cookieConsent = localStorage.getItem("cookieConsent");
-    if (!cookieConsent) {
-      setShowBanner(true);
-    }
-  }, []);
+  const showBanner = !consentGiven;
 
   const acceptAll = () => {
     const preferences = {
@@ -23,8 +35,7 @@ export default function CookieBanner() {
       analytics: false, // Google Analytics falls später benötigt
       timestamp: new Date().toISOString(),
     };
-    localStorage.setItem("cookieConsent", JSON.stringify(preferences));
-    setShowBanner(false);
+    writeToStorage(STORAGE_KEY, JSON.stringify(preferences));
   };
 
   const acceptNecessary = () => {
@@ -34,8 +45,7 @@ export default function CookieBanner() {
       analytics: false,
       timestamp: new Date().toISOString(),
     };
-    localStorage.setItem("cookieConsent", JSON.stringify(preferences));
-    setShowBanner(false);
+    writeToStorage(STORAGE_KEY, JSON.stringify(preferences));
   };
 
   const savePreferences = (preferences: {
@@ -47,8 +57,7 @@ export default function CookieBanner() {
       ...preferences,
       timestamp: new Date().toISOString(),
     };
-    localStorage.setItem("cookieConsent", JSON.stringify(fullPreferences));
-    setShowBanner(false);
+    writeToStorage(STORAGE_KEY, JSON.stringify(fullPreferences));
     setShowSettings(false);
   };
 

@@ -14,7 +14,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const Gallery21 = () => {
   const { t } = useLanguage();
-  const [domLoaded, setDomLoaded] = useState(false);
   const [shuffledImages, setShuffledImages] = useState<Array<{ 
     src: string; 
     alt: string;
@@ -57,15 +56,18 @@ const Gallery21 = () => {
     return shuffled;
   };
 
+  // Shuffle images on mount with photographer separation.
+  // Die Reihenfolge wird gewuerfelt und darf deshalb nicht im Server-HTML
+  // stehen, sonst weicht sie beim Hydrieren ab. Die Galerie erscheint erst
+  // nach dem Mounten, dafuer ist das setState im Effect hier noetig.
   useEffect(() => {
-    setDomLoaded(true);
-    // Shuffle images on mount with photographer separation
     const images = portfolioItems.map(item => ({
       src: item.thumb,
       alt: item.alt,
       photographer: item.photographer,
       photographerInstagram: item.photographerInstagram,
     }));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShuffledImages(shuffleWithPhotographerSeparation(images));
   }, []);
 
@@ -138,7 +140,7 @@ const Gallery21 = () => {
         <div className="pointer-events-none absolute right-0 z-10 h-full w-24 bg-gradient-to-l from-earth-50/20 md:from-earth-50/50 to-transparent" />
 
         <div className="relative h-[500px] w-full max-w-6xl mx-auto">
-          {domLoaded && shuffledImages.length > 0 && (
+          {shuffledImages.length > 0 && (
             <motion.div
               className="relative h-full w-full"
               initial={{ opacity: 0, translateY: 20 }}
