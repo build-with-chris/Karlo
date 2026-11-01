@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Impressum",
@@ -112,7 +113,7 @@ export default function ImpressumPage() {
 
         {/* Back to Home Link */}
         <div className="mt-12 pt-8 border-t border-earth-300">
-          <a
+          <Link
             href="/"
             className="inline-flex items-center text-accent hover:text-accent-light transition-colors group"
           >
@@ -131,7 +132,7 @@ export default function ImpressumPage() {
               />
             </svg>
             Zurück zur Startseite
-          </a>
+          </Link>
         </div>
       </div>
     </div>

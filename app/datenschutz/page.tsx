@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
@@ -67,8 +68,8 @@ export default function DatenschutzPage() {
             </h2>
             <p className="text-earth-700 leading-relaxed mb-4">
               Diese Website verwendet Google Analytics, einen Webanalysedienst
-              der Google Ireland Limited („Google"). Google Analytics verwendet
-              sogenannte „Cookies", also Textdateien, die auf Ihrem Computer
+              der Google Ireland Limited („Google&quot;). Google Analytics verwendet
+              sogenannte „Cookies&quot;, also Textdateien, die auf Ihrem Computer
               gespeichert werden und die eine Analyse der Benutzung der Website
               durch Sie ermöglichen.
             </p>
@@ -198,7 +199,7 @@ export default function DatenschutzPage() {
 
         {/* Back to Home Link */}
         <div className="mt-12 pt-8 border-t border-earth-300">
-          <a
+          <Link
             href="/"
             className="inline-flex items-center text-accent hover:text-accent-light transition-colors group"
           >
@@ -217,7 +218,7 @@ export default function DatenschutzPage() {
               />
             </svg>
             Zurück zur Startseite
-          </a>
+          </Link>
         </div>
       </div>
     </div>
